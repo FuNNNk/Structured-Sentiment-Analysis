@@ -14,4 +14,4 @@
 
 Team coordinator: Trandabat Diana
 
-[~~Trello~~](https://trello.com/b/aIm9POpX/structured-sentiment-analysis)
+[Trello](https://trello.com/b/aIm9POpX/structured-sentiment-analysis)
