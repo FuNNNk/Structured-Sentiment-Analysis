@@ -4,15 +4,15 @@
 
 **Working team**
 
-1.  Istrate Maria (MLC)
+1.  Istrate Maria (MLC) - mistrate06@gmail.com
     
-2.  Lupancu Camelia (MLC)
+2.  Lupancu Camelia (MLC) - lupancu_camelia_99v@yahoo.com
     
-3.  Lupu Cosmin (MLC)
+3.  Lupu Cosmin (MLC) - cosminlupuv@gmail.com
     
-4.  Platica Alexandru-Gabrie (MLC)
+4.  Platica Alexandru-Gabriel (MLC) - platicaalex@gmail.com
     
-5.  Volosincu Bogdan (MLC)
+5.  Volosincu Bogdan (MLC) - bogdan.volosincu@gmail.com
 
 Team coordinator: Trandabat Diana
 
