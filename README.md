@@ -1,5 +1,7 @@
 # Structured-Sentiment-Analysis
 
+[SemEval-2022 Shared Task 10: Structured Sentiment Analysis](https://competitions.codalab.org/competitions/33556#learn_the_details-overview)
+
 **Working team**
 
 1.  Istrate Maria (MLC)
