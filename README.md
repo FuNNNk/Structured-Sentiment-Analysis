@@ -13,3 +13,5 @@
 5.  Volosincu Bogdan (MLC)
 
 Team coordinator: Trandabat Diana
+
+[~~Trello~~](https://trello.com/b/aIm9POpX/structured-sentiment-analysis)
