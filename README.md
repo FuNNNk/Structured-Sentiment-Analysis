@@ -14,6 +14,8 @@
     
 5.  Volosincu Bogdan (MLC) - bogdan.volosincu@gmail.com
 
+6. Aenasoaei Denis (MLC) - denis.aenasoaei@yahoo.com
+
 Team coordinator: Trandabat Diana
 
 [State-of-the-art](https://docs.google.com/document/d/1pc6v_ZByhtzvtFANLknnSOkIbzNAgMqH7ZdvuvMxwQA/edit?usp=sharing)
