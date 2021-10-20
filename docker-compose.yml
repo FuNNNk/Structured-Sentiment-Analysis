@@ -1,0 +1,43 @@
+version : '3'
+
+services:
+
+  ssa-webui:
+    image: ssawebui:latest
+    container_name: ssa-webui
+    depends_on:
+      - ssa-ia
+    environment:
+      - SHELL=/bin/bash
+    ports:
+      - 10080:80
+#      - 10443:443
+      
+  ssa-web:
+    image: ssaweb:latest
+    container_name: ssa-web
+    depends_on:
+      - ssa-ia
+    environment:
+      - SHELL=/bin/bash
+    ports:
+      - 10085:80
+#      - 10443:443
+
+
+  ssa-ia:
+    image: ssaia:latest
+    container_name: ssa-ia
+    environment:
+      - SHELL=/bin/bash
+    ports:
+      - 10085:80
+
+
+#   iris-postgres:
+#     image: postgres:9.6.8-alpine
+#     container_name: postgres-96
+#     environment:
+#       - POSTGRES_PASSWORD=postgres
+#     ports:
+#       - 5432:5432
