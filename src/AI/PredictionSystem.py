@@ -2,8 +2,8 @@ from Singleton import Singleton
 from ImplementedAlgorithm import *
 from PreProcessor import PreProcessor
 
-# Mediator, Singleton
 
+# MEDIATOR, SINGLETON
 class PredictionSystem(metaclass=Singleton):
     preprocessor = PreProcessor()
     algorithm = None
