@@ -1,6 +1,6 @@
 class dataPrototype {
 
-    dataSource: String
+    dataSource: Source
     formatedData: boolean
 
 
