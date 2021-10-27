@@ -26,3 +26,8 @@ Proxy pattern
     * Pornirea a 2 sau mai multe containere separa responsabilități și crește gradul de încredere în mediu fiind decuplat de alte componente dar poate expune un număr mai mare de vulnerabilitati dacă toate containerele sunt expuse direct la internet.
     * Proxy pattern este metoda prin care ascundem punctele directe de acces (endpoint-urile in cele mai multe cazuri) și le deschidem accesul doar în cadrul unei rețele private (interne Docker) iar accesul spre internet să fie deschis doar cu un container care sa indeplineasca și o funcție de rutare.
     * Într-o forma mai avansată acest container poate fi îmbunătățit și juca și un rol de loadbalancer.  
+
+
+UI - Lupu Cosmin-Viorel
+
+Am creat o clasă dataPrototype după Prototype Pattern care v-a putea fi folosită pentru a crea clase pentru diferitele tipuri de date, în principal în funcție de proveniența acestora (de la SemEval sau de la utilizator) și de structura acestora (dacă sunt deja formatate după formatul dorit sau vor trebui formatate și o clasă Observer după Observer Pattern pentru ca acțiunile utilizatorului sa fie observate și componentele corespunzătoare să poate fi notificate și să execute acțiunile necesare.
