@@ -1,12 +1,12 @@
 from Singleton import Singleton
 
 
-# Singleton
+# SINGLETON
 class PreProcessor(metaclass=Singleton):
 
     def __init__(self, text=None):
         if text != None:
-           self.text = self.pre_process_input(text)
+            self.text = self.pre_process_input(text)
         else:
             self.text = None
 

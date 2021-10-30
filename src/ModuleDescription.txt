@@ -1,0 +1,33 @@
+Backend - Plătică Alexandru-Gabriel
+    Am implementat câteva funcții de bază pe care voi construi mai târziu serviciile de livrare de date. 
+    Am un Server Manager care se ocupă cu clasele de primire și livrare de date și un conector care face legătura cu partea de Inteligență Artificială. 
+    Am decis ca această clasă să fie un Singleton pentru ca persoana care trimite input-ul să nu facă acest lucru de mai multe ori și să dea rezultate îndoielnice. 
+    Avem o clasă Input Data Receiver care am decis să meargă după Design Pattern-ul Chain of Responsability, astfel încât această să decidă dacă datele primite, sub formă text sau fișier, o să apeleze funcții specializate pentru fiecare din aceste 2 formate. 
+    Clasa aceasta se folosesțe de Input Data Preprocessing pentru a transforma datele într-un format care vor fi ușor citite de către partea de AI. Pe de altă parte, avem clasa Output Data Sender care va prelua datele primite de la partea AI și le va trimite către UI, adică spre client.
+
+
+AI - Aenasoaei Denis, Lupancu Camelia
+Pe partea de AI am creat o serie de clase, printre care:
+    * clasa PreProcessor, ce va fi un Singleton, in care vom procesa textul primit ca input, adica ne vom ocupa de tokenizare, lowercase transformation, eliminare de stop words si steamming.
+    * clasa PredictionSystem, ce va fi un Singleton si un Mediator intre partea de rulare a scriptului (cel mai probabil de la linia de comanda) si partea de antrenare, testare si predictie a unuia dintre algoritmii implementati. Pentru selectia algoritmului dorit se poate implementa pattern-ul de Strategy.
+    * clasa abstracta Algorithm, care este in acelasi timp Template pentru fiecare din implementarile propriu-zise ale algoritmilor, dar si o Fațadă intre punctul de primire a datelor si partea de lucru efectiv cu ele (antrenare, testare, predictie, salvare de model, etc.).
+    * clasa NeuralNetworksAlg, care implementeaza template-ul descris in Algorithm si care va fi unul dintr-o serie de algoritmii implementati ce se vor ocupa de predictie.
+
+
+DevOps - Bogdan Volosincu
+
+Command Pattern
+    * incapsularea comenzilor necesare pentru a porni un set de containere docker intr-un script bash sau docker-compose.yml
+    * ascunde complexitatea (instalarea dependintelor și configurarea mediului) si înlătura problemele ce țin de ordinea comenzilor în pornirea unui mediu compus din componente (server Frontend, Backend, procesator Tensorflow pt partea de IA) ce ruleaza in containere Docker
+
+
+Proxy pattern
+    * Într-o arhitectura de servicii după un anumit punct dacă numărul de containere crește rutarea și comunicarea dintre containere poate deveni problematica fiind necesara o componenta externa de rutare.
+    * Pornirea a 2 sau mai multe containere separa responsabilități și crește gradul de încredere în mediu fiind decuplat de alte componente dar poate expune un număr mai mare de vulnerabilitati dacă toate containerele sunt expuse direct la internet.
+    * Proxy pattern este metoda prin care ascundem punctele directe de acces (endpoint-urile in cele mai multe cazuri) și le deschidem accesul doar în cadrul unei rețele private (interne Docker) iar accesul spre internet să fie deschis doar cu un container care sa indeplineasca și o funcție de rutare.
+    * Într-o forma mai avansată acest container poate fi îmbunătățit și juca și un rol de loadbalancer.  
+
+
+UI - Lupu Cosmin-Viorel
+
+Am creat o clasă dataPrototype după Prototype Pattern care v-a putea fi folosită pentru a crea clase pentru diferitele tipuri de date, în principal în funcție de proveniența acestora (de la SemEval sau de la utilizator) și de structura acestora (dacă sunt deja formatate după formatul dorit sau vor trebui formatate și o clasă Observer după Observer Pattern pentru ca acțiunile utilizatorului sa fie observate și componentele corespunzătoare să poate fi notificate și să execute acțiunile necesare.

@@ -1,6 +1,6 @@
-
-
+import tensorflow as tf
 from Algorithm import Algorithm
+
 
 class NeuralNetworksAlg(Algorithm):
 
@@ -17,7 +17,7 @@ class NeuralNetworksAlg(Algorithm):
             self.initialise_model()
 
     def initialise_model(self):
-        self.model = tf.model('''params''') # ?
+        self.model = tf.model('''params''')  # ?
 
     def train(self, training_data):
         pass

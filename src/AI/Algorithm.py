@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 # TEMPLATE, FACADE
 class Algorithm(ABC):
     model = None
