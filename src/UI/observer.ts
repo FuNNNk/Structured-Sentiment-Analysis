@@ -1,32 +1,46 @@
 class Observer {
  
-    public http:String
+    public link:String
 
-    private ListOfText:dataPrototype
+    private ListOfTexts:dataPrototype
 
     public SubscribeObserver() {
+
+        return true
 
     }
 
     public UnsubscribeObserver() {
 
+        return true
+
     }
 
     public NotifyObserver() {
+
+        return true
 
     }
 
     public NotifyAllObservers() {
 
+        return true
+
     }
 
     public GetListOfTexts(){
 
-    }
-
-    public constructor() {
+        return []
 
     }
+
+    public constructor(link:String, ListOfTexts:dataPrototype) {
+        this.link = link
+        this.ListOfTexts = ListOfTexts
+
+    }
+
+    
 
 }
 
@@ -45,7 +59,7 @@ it('should be singleton', () => {
     expect(dp.formatedData).to.equal(true);
   });  
 
-  let dp = new dataPrototype()
+  let dp = TestBed.createComponent(dataPrototype)
 
   it('should be true', () => {
     var obs = new Observer('',dp);
