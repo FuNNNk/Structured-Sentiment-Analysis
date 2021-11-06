@@ -80,3 +80,32 @@ it('should be singleton', () => {
     var obs = new Observer('',dp);
     expect(obs.GetListOfTexts).to.equal([]);
   });  
+
+
+//async tests
+
+it('subscribed to Observer', (done) => { (1)
+    obs = TestBed.createComponent(Observer)
+    obs.detectChanges();
+    expect(obs.SubscribeObserver).toBe(false);
+    let spy = spyOn(obsService, 'isObserved').and.returnValue(Promise.resolve(false));
+    observerComponent.ngOnInit();
+    spy.calls.mostRecent().returnValue.then(() => { (2)
+      obs.detectChanges();
+      expect(obs.SubscribeObserver).toBe(true);
+      done(); (3)
+    });
+  });
+
+  it('notify observer', async(() => { (1)
+    obs = TestBed.createComponent(Observer)
+    obs.detectChanges();
+    expect(obs.NotifyObserver).toBe(false);
+    spyOn(obsService, 'isNotified').and.returnValue(Promise.resolve(true));
+    fixture.whenStable().then(() => { (2)
+      fixture.detectChanges();
+      expect(obs.NotifyObserver).toBe(true);
+    });
+    observerComponent.ngOnInit();
+  }));
+
