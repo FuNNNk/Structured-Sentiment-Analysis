@@ -21,7 +21,7 @@ class PreProcessor(metaclass=Singleton):
         return None
 
     def _to_lowercase(self, text):
-        return None
+        return text.lower()
 
     def _remove_stop_words(self, text):
         return None
