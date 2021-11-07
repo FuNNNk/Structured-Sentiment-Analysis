@@ -1,7 +1,5 @@
-var sm = require("./ServerManager.js")
+var ServerManager = require("./modules/ServerManager")
 
-var connection = new sm.ServerManager()
-
-
-var tests =  require("./tests/Tests.js")
-console.log(tests)
+var connection = new ServerManager.ServerManager();
+connection.UIConnector("Data mea");
+connection.AIConnector("Data mea noua");

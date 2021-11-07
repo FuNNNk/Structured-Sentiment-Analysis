@@ -1,11 +1,12 @@
 var idr = require('./InputDataReceiver')
 var ods = require('./OutputDataSender')
 var idp = require('./InputDataProcessing')
+const aop = require('../aop')
 
 class ServerManager{
     static #privateInstance = true;
 
-    ServerManager(){
+    constructor(){
         
         const http = require('http');
 
@@ -19,18 +20,41 @@ class ServerManager{
         });
 
         server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+            console.log(`Server running at http://${hostname}:${port}/`);
+        });
+
     }
-    AIConnector(){
-        return true;
+
+    UIConnector(text){
+        let inputDataReceiver = new idr.InputDataReceiver(text);
+        aop.inject(inputDataReceiver, this.loggingAspect,"before","methods");
+        aop.inject(inputDataReceiver, this.printTypeOfData,"afterReturning","methods");
+        if(typeof(text) === 'string')
+            var data = inputDataReceiver.getText();
+        else if(text instanceof File)
+            if(text.split('.').pop() == 'json')
+                var data = inputDataReceiver.getJsonFile();
+            else
+                var data = inputDataReceiver.getTextFile();
+    }
+
+    AIConnector(text){
+        let outputDataSender = new ods.OutputDataSender(text);
+        outputDataSender.sendText();
     }
     static getInstance(){
-        // inputDataReceiver = new idr.InputDataReceiver();
-        // outputDataSender = new ods.OutputDataSender();
-        // inputDataProcessing = new idp.InputDataProcessing();
+        
         return this.#privateInstance;
     } // Singleton server
+
+    loggingAspect(text){
+        console.log("== Calling the logger function ==");
+        console.log("Text received: " + text);
+    }
+
+    printTypeOfData(data){
+        console.log("Type of data is: " + typeof(data))
+    }
 }
 
 module.exports.ServerManager = ServerManager
