@@ -1,0 +1,29 @@
+{
+  "name": "structured-sentiment-analysis",
+  "version": "1.0.0",
+  "description": "Project",
+  "main": "index.js",
+  "type": "commonjs",
+  "dependencies": {
+    "chai": "^4.3.4",
+    "co-mocha": "^1.2.2",
+    "mocha-junit-reporter": "^2.0.2",
+    "start": "^5.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^9.1.3"
+  },
+  "scripts": {
+    "test": "mocha tests/Tests.js --reporter mocha-junit-reporter --timeout 60000 --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FuNNNk/Structured-Sentiment-Analysis.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FuNNNk/Structured-Sentiment-Analysis/issues"
+  },
+  "homepage": "https://github.com/FuNNNk/Structured-Sentiment-Analysis#readme"
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.0070" tests="9" failures="0">
+  <testsuite name="Root Suite" timestamp="2021-11-07T11:03:34" tests="9" time="0.0040" failures="0">
+    <testcase name="should be true" time="0.0010" classname="should be true">
+    </testcase>
+    <testcase name="should return text" time="0.0000" classname="should return text">
+    </testcase>
+    <testcase name="should be true" time="0.0000" classname="should be true">
+    </testcase>
+    <testcase name="should be true" time="0.0000" classname="should be true">
+    </testcase>
+    <testcase name="should return text" time="0.0000" classname="should return text">
+    </testcase>
+    <testcase name="should be true" time="0.0000" classname="should be true">
+    </testcase>
+    <testcase name="should be true" time="0.0000" classname="should be true">
+    </testcase>
+    <testcase name="should be true" time="0.0000" classname="should be true">
+    </testcase>
+    <testcase name="should be true" time="0.0000" classname="should be true">
+    </testcase>
+  </testsuite>
+</testsuites>
