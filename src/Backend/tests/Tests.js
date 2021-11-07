@@ -5,9 +5,9 @@ const InputDataReceiver = require('../modules/InputDataReceiver')
 const OutputDataSender = require('../modules/OutputDataSender')
 const expect = require('chai').expect
 
-// it('should be singleton', () =>{
-//     expect(ServerManager.getInstance()).to.equal(true);
-// })
+it('should be singleton', () =>{
+    expect(ServerManager.ServerManager.getInstance()).to.equal(true);
+})
 
 it('should be true', () =>{
     var sm = new ServerManager.ServerManager()
