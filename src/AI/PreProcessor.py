@@ -1,4 +1,7 @@
 from Singleton import Singleton
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
 
 
 # SINGLETON
@@ -18,13 +21,29 @@ class PreProcessor(metaclass=Singleton):
         return text
 
     def _tokenize(self, text):
-        return None
+        return word_tokenize(text)
 
     def _to_lowercase(self, text):
-        return text.lower()
+        lowercase_text = []
+        for word in text:
+            lowercase_text.append(word.lower())
+        return lowercase_text
 
     def _remove_stop_words(self, text):
-        return None
+        text_without_sw = []
+        for word in text:
+            if word not in stopwords.words():
+                text_without_sw.append(word)
+        return text_without_sw
 
     def _stem_text(self, text):
-        return None
+        porter = PorterStemmer()
+        stemmed_text = []
+        for word in text:
+            stemmed_text.append(porter.stem(word))
+        return stemmed_text
+
+
+if __name__ == "__main__":
+    pp = PreProcessor("This is a TeST?? I'm just playing.")
+    print(pp.text)
