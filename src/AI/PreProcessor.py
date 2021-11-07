@@ -3,6 +3,7 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 import json
+from aspectlib import Aspect
 
 
 # SINGLETON
@@ -45,6 +46,14 @@ class PreProcessor(metaclass=Singleton):
         return stemmed_text
 
 
+@Aspect(bind=True)
+def file_parser(cutpoint, *args):
+    print("Parsing '%s' file with '%s' method..." % (args[0], cutpoint.__name__))
+    result = yield
+    print(" ... in this file are %s texts." % len(result))
+
+
+@file_parser
 def json_file_parser(file):
     with open(file) as f:
         load_file = json.load(f)
