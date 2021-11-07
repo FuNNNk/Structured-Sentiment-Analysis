@@ -1,13 +1,11 @@
 class InputDataProcessing{
     #text;
-    #textfile;
-    InputDataProcessing(){};
+    constructor(text){
+        this.#text = text;
+    }
     transformText(text){
-        return '';
-    };
-    transformTextFile(textfile){
-        return true;
-    };
+        return this.#text;
+    }
 }
 
 

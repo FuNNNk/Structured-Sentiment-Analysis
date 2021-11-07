@@ -1,17 +1,11 @@
 class OutputDataSender{
     #text;
-    #textFile;
-    #sJsonFile;
-    OutputDataSender(){};
-    sendText(text){
-        return true;
-    };
-    sendTextFile(textFile){
-        return true;
-    };
-    sendJsonFile(JsonFile){
-        return true;
-    };
+    constructor(data){
+        this.#text = data
+    }
+    sendText(){
+        console.log(this.#text)
+        return this.#text;
+    }
 }
-
 module.exports.OutputDataSender = OutputDataSender
