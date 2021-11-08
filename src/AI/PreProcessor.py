@@ -64,16 +64,25 @@ def json_file_parser(file):
     return texts_from_file
 
 
+def write_list_into_file(list):
+    textfile = open("Training data/corpus2.txt", "ab")
+    for element in list:
+        textfile.write(element.encode("UTF-8") + " ".encode("UTF-8"))
+    textfile.close()
+
+
 if __name__ == "__main__":
     # pp = PreProcessor("This is a TeST?? I'm just playing.")
     # print(pp.text)
 
-    file = "Training data/train.json"
+    file = "Training data/train2.json"
     list_of_texts = json_file_parser(file)
     # print(list_of_texts)
 
-    processed_texts = []
-    for text in list_of_texts:
-        pp = PreProcessor(text)
-        # print(pp.pre_process_input(text))
-        processed_texts.append(pp.pre_process_input(text))
+    # write_list_into_file(list_of_texts)
+
+    # processed_texts = []
+    # for text in list_of_texts:
+    #     pp = PreProcessor(text)
+    #     # print(pp.pre_process_input(text))
+    #     processed_texts.append(pp.pre_process_input(text))
