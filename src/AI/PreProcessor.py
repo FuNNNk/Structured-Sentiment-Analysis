@@ -9,7 +9,7 @@ from aspectlib import Aspect
 # SINGLETON
 class PreProcessor(metaclass=Singleton):
 
-    def __init__(self, text):
+    def __init__(self, text=None):
         if text is not None:
             self.text = self.pre_process_input(text)
         else:
