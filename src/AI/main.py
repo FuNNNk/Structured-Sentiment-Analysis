@@ -4,6 +4,7 @@ import argparse
 import os
 
 
+
 """
 Parse input arguments for training/testing/prediction and type of algorithm
 """
@@ -61,6 +62,7 @@ else:
                   "full list of arguments you must have.")
     else:
         print(" ___ ")
+
 
 
 # Example call

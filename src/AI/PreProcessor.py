@@ -5,6 +5,9 @@ from nltk.stem import PorterStemmer
 import json
 from aspectlib import Aspect
 
+from pythonrv import rv
+import mop_valid
+
 
 # SINGLETON
 class PreProcessor(metaclass=Singleton):
