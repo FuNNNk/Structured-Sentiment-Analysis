@@ -1,0 +1,73 @@
+.upload-component{
+    height: 100%;
+    display: grid; 
+    grid-template-rows: 40% 60%
+}
+
+.ud-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ud-options{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.title{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    background-color: #85A49E;
+    font-size: 2em;
+    text-align: center;
+    width: 50%;
+    border: 0px solid black;
+    border-radius: 1em;
+    box-shadow: 10px 10px #E1E1E1;
+    font-weight: bold;
+}
+.dropdown{
+    display: flex;
+    justify-content: flex-end;
+}
+select{
+    background-color: #E1E1E1;
+    width: 100%;
+    margin: 0.5em;
+    border: 0px;
+    border-radius: 0.5em;
+    font-size: 30pt;
+    padding-top: 0.2em;
+    padding-left: 1em;
+    padding-bottom: 0.2em;
+}
+
+select:active{
+    border: none;
+}
+
+.cf-title{
+    display: flex;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+.browse-btn{
+    display: flex;
+    justify-content: center;
+    height: 20%;
+    margin-top: 18%;
+}
+button{
+    background-color: #85A49E;
+    width: 5em;
+    border: none;
+    color: white;
+    font-size: 2em;
+    border-radius: 0.5em;
+}
+button:hover{
+    background-color: #576D69;
+}
