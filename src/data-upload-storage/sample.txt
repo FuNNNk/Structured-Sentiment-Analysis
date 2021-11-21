@@ -1,0 +1,3 @@
+fisier incarcat cu http://localhost:3000/uiconnector 
+
+date de test

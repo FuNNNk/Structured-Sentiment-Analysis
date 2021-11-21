@@ -42,15 +42,32 @@ module.exports = {
 
     monitorHeaders(headers){
         if (config.securityMiddleware) {
-            console.log("Security log: ", JSON.stringify(headers));
+            console.log("Middleware headers log: \n", JSON.stringify(headers),"\n");
+        } 
+    },
+
+    monitorOrigin(req){
+        if (config.originMiddleware) {
+            console.log("Middleware path log: ", JSON.stringify(req.originalUrl));
+            console.log("url: ", req.url);
+            console.log("method: ", req.method,"\n");
         }
-        
     },
 
     monitorAIConnection(data){
         if(config.AIConnection) {
             console.log("AI Connection:", JSON.stringify(data));
         }
-    }
+    },
+
+    monitorFileUpload(file){
+        if (config.trainingDataUpload) {
+            console.log("Middleware data-upload log:");
+            console.log("file name: ", file.name);
+            console.log("file size: ", file.size);
+            console.log("file md5: ", file.md5);
+            console.log("file mimetype: ", file.mimetype,"\n");
+        } 
+    },
     
 }

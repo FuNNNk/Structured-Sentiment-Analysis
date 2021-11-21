@@ -1,10 +1,18 @@
 
 
-var express = require('express')
+var express = require('express');
+const path = require('path');
+const fileUpload = require('express-fileupload');
+const aop = require('../aop')
 
 const ConnectorService = require("./ConnectorService");
 const SecurityMiddleware = require("../monitoring/SecurityMiddleware");
 
+const { securityMiddleware, originMiddleware, middlewareResolver } = SecurityMiddleware;
+
+const pipe = (...fns) => (x) => fns.reduce((v, f) => f(v), x);
+
+const middleware = middlewareResolver(pipe(securityMiddleware, originMiddleware));
 
 class ServerManager{
 
@@ -12,40 +20,44 @@ class ServerManager{
 
         var app = express();
 
-        app.get('/', function (req, res) {
-            res.send('hello world. Test');
-        });
+        app.use(fileUpload());
 
          /** POST */
-        app.post('/uiconnector', function (req, res) {
-            console.log(req.body);
-            // fiser atasat pe request (postman)
+        app.post('/uiconnector', middleware(
+            function (req, res) {
+                let sampleFile;
+                let uploadPath;
+              
+                if (!req.files || Object.keys(req.files).length === 0) {
+                  return res.status(400).send('No files were uploaded.');
+                }
+                sampleFile = req.files.sample;
+                uploadPath = path.resolve(__dirname, '../../data-upload-storage/' + sampleFile.name);
+                
+                aop.monitorFileUpload(sampleFile);
 
-            // pentru partea de monitoring 
-            // size, file type, (txt, pdf, json) ext, date
-            // monitoring pt security: headers, origin, params
-
-            // write data to disk/db for ai module to read from
-
-            // ConnectorService.setAIConnector();
-            res.send('hello world. Test');
-        });
+                sampleFile.mv(uploadPath, function(err) {
+                  if (err) {
+                    res.status(500).send(err);
+                    throw new Error("eroare la incarcarea fisierului.")
+                  }
+                });
+                // @TODO move code in ConnectorService
+                // ConnectorService.setAIConnector();
+                res.send('File uploaded!');
+            }
+        ));
 
         /** GET */
-        app.get('/uiconnector', function (req, res) {
-           
-            // fiser atasat pe request (postman)
+        app.get('/uiconnector', middleware(
+            function (req, res) {
+                // @TODO read from ConnectorService
+                // ConnectorService.getAIConnectorData(); // read the AI output from localdb
+                res.send('Test:  read the AI output from localdb');
+            }
+        ));
 
-            // pentru partea de monitoring 
-            // size, file type, (txt, pdf, json) ext, date
-            // monitoring pt security: headers, origin, params
-
-            // ConnectorService.getAIConnectorData(); // read the AI output from localdb
-
-            res.send('Test:  read the AI output from localdb');
-        });
-
-        app.get('/stats', SecurityMiddleware.readHeadersMiddleware(
+        app.get('/stats', middleware(
             function (req, res) {
                 const stats = ConnectorService.getAIConnectorStats();
                 res.send(stats);
