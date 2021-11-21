@@ -1,60 +1,60 @@
-var idr = require('./InputDataReceiver')
-var ods = require('./OutputDataSender')
-var idp = require('./InputDataProcessing')
-const aop = require('../aop')
+
+
+var express = require('express')
+const ConnectorService = require("./ConnectorService");
 
 class ServerManager{
-    static #privateInstance = true;
 
-    constructor(){
-        
-        const http = require('http');
+    static startInstance(){
 
-        const hostname = '127.0.0.1';
-        const port = 3000;
+        var app = express();
 
-        const server = http.createServer((req, res) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plain');
-        res.end('Hello World');
+        app.get('/', function (req, res) {
+            res.send('hello world. Test');
         });
 
-        server.listen(port, hostname, () => {
-            console.log(`Server running at http://${hostname}:${port}/`);
+         /** POST */
+        app.post('/uiconnector', function (req, res) {
+            console.log(req.body);
+            // fiser atasat pe request (postman)
+
+            // pentru partea de monitoring 
+            // size, file type, (txt, pdf, json) ext, date
+            // monitoring pt security: headers, origin, params
+
+            // write data to disk/db for ai module to read from
+
+            // ConnectorService.setAIConnector();
+            res.send('hello world. Test');
         });
 
-    }
+        /** GET */
+        app.get('/uiconnector', function (req, res) {
+           
+            // fiser atasat pe request (postman)
 
-    UIConnector(text){
-        let inputDataReceiver = new idr.InputDataReceiver(text);
-        aop.inject(inputDataReceiver, this.loggingAspect,"before","methods");
-        aop.inject(inputDataReceiver, this.printTypeOfData,"afterReturning","methods");
-        if(typeof(text) === 'string')
-            var data = inputDataReceiver.getText();
-        else if(text instanceof File)
-            if(text.split('.').pop() == 'json')
-                var data = inputDataReceiver.getJsonFile();
-            else
-                var data = inputDataReceiver.getTextFile();
-    }
+            // pentru partea de monitoring 
+            // size, file type, (txt, pdf, json) ext, date
+            // monitoring pt security: headers, origin, params
 
-    AIConnector(text){
-        let outputDataSender = new ods.OutputDataSender(text);
-        outputDataSender.sendText();
-    }
-    static getInstance(){
+            // ConnectorService.getAIConnectorData(); // read the AI output from localdb
+
+            res.send('Test:  read the AI output from localdb');
+        });
+
+        app.get('/stats', function (req, res) {
+           
+          
+
+            const stats = ConnectorService.getAIConnectorStats();
+            res.send(stats);
+        });
+
+        app.listen(3000, function () {
+            console.log('Example app listening on port 3000!');
+        });
         
-        return this.#privateInstance;
     } // Singleton server
-
-    loggingAspect(text){
-        console.log("== Calling the logger function ==");
-        console.log("Text received: " + text);
-    }
-
-    printTypeOfData(data){
-        console.log("Type of data is: " + typeof(data))
-    }
 }
 
 module.exports.ServerManager = ServerManager
