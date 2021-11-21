@@ -1,4 +1,6 @@
 /** Helping function used to get all methods of an object */
+const config = require("./config");
+
 const getMethods = (obj) => Object.getOwnPropertyNames(Object.getPrototypeOf(obj)).filter(item => typeof obj[item] === 'function')
 
 /** Replace the original method with a custom function that will call our aspect when the advice dictates */
@@ -36,7 +38,13 @@ module.exports = {
                 replaceMethod(target, m, aspect, advice)
             })
         }
-    }
+    },
 
+    monitorHeaders(headers){
+        if (config.securityMiddleware) {
+            console.log("Security log: ", JSON.stringify(headers));
+        }
+        
+    }
     
 }

@@ -22,13 +22,11 @@ function setAIConnector (text) {
 }
 
 function getAIConnectorStats () {
-    // let outputDataSender = new ods.OutputDataSender(text);
-    // outputDataSender.sendText();
-
+    // TODO aop.monitorAIconnection()
     const modelStat={
-        "sentiment": "positive" | "negative",
+        "sentiment": "", // AiSentimentConnector.getSentiment(), //"positive" | "negative"
         "target": "",
-        "accuracy": "",
+        "accuracy": "", // AiSentimentConnector.readAccuracy(), //  monitorin pt text size 
         "positive-words": {"beautiful": 5, "nice": 3, love:1},
         "negative-words": {"hate": 5, "ugly": 3, bad:1}
     }

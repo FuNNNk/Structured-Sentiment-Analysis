@@ -1,7 +1,10 @@
 
 
 var express = require('express')
+
 const ConnectorService = require("./ConnectorService");
+const SecurityMiddleware = require("../monitoring/SecurityMiddleware");
+
 
 class ServerManager{
 
@@ -42,13 +45,12 @@ class ServerManager{
             res.send('Test:  read the AI output from localdb');
         });
 
-        app.get('/stats', function (req, res) {
-           
-          
-
-            const stats = ConnectorService.getAIConnectorStats();
-            res.send(stats);
-        });
+        app.get('/stats', SecurityMiddleware.readHeadersMiddleware(
+            function (req, res) {
+                const stats = ConnectorService.getAIConnectorStats();
+                res.send(stats);
+            }
+        ));
 
         app.listen(3000, function () {
             console.log('Example app listening on port 3000!');
