@@ -4,7 +4,6 @@ import argparse
 import os
 
 
-
 """
 Parse input arguments for training/testing/prediction and type of algorithm
 """
