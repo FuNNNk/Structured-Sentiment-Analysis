@@ -45,6 +45,12 @@ module.exports = {
             console.log("Security log: ", JSON.stringify(headers));
         }
         
+    },
+
+    monitorAIConnection(data){
+        if(config.AIConnection) {
+            console.log("AI Connection:", JSON.stringify(data));
+        }
     }
     
 }
