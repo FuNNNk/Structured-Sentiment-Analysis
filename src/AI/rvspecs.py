@@ -1,7 +1,5 @@
 from pythonrv import rv
-from PreProcessor import PreProcessor
 import mop_valid
-import os
 
 
 @rv.monitor(clean=mop_valid.clean_wrong_rows, validate=mop_valid.validate_json)
@@ -9,7 +7,8 @@ def spec_try_cleaning(event):
     if event.called_function == event.fn.validate:
         if len([old_ev for old_ev in event.history if old_ev.called_function == old_ev.fn.clean]) == 0:
             print("Starting clean from monitoring")
-            df = mop_valid.clean_wrong_rows(event.fn.validate.args[0])
+            df = mop_valid.clean_wrong_rows(event.fn.validate.inputs[0])
+            print(df)
         assert len([old_ev for old_ev in event.history if old_ev.called_function == old_ev.fn.clean]) > 0
 
 
