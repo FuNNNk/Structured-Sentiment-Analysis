@@ -8,6 +8,9 @@ const aop = require('../aop')
 const ConnectorService = require("./ConnectorService");
 const SecurityMiddleware = require("../monitoring/SecurityMiddleware");
 
+const OpinionModule = require("../opinionModules/opinionSeeds");
+
+
 const { securityMiddleware, originMiddleware, middlewareResolver } = SecurityMiddleware;
 
 const pipe = (...fns) => (x) => fns.reduce((v, f) => f(v), x);
@@ -62,6 +65,26 @@ class ServerManager{
                 const stats = ConnectorService.getAIConnectorStats();
                 res.send(stats);
             }
+        ));
+
+
+        app.get('/parser', middleware(
+            function (req, res) {
+                const input = "Even though the price is decent for Paris, I would not recommend this hotel ."
+                const posInput = input.split(" ").map(w => {
+                    if (w=="decent") {
+                        return {word: w, type: 'adj'};
+                    } else if (w=="recommend") {
+                        return {word: w, type: 'verb'};
+                    }
+                    return {word: w, type: 'noun'};
+                });
+                console.log(posInput);
+
+                const rez = OpinionModule.buildSentimentTrainingDataStructure(posInput);
+                res.send("Datele au fost salvate > ssa-training.txt");
+            }
+            
         ));
 
         app.listen(3000, function () {

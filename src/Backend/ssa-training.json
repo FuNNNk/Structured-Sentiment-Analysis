@@ -1,0 +1,28 @@
+{
+    "Target": "",
+    "source": "",
+    "Polar_expression": [
+        {
+            "word": "decent",
+            "type": "adj"
+        }
+    ],
+    "syns": [
+        [
+            "properly",
+            "decently",
+            "decent",
+            "right",
+            "satisfactory",
+            "acceptable",
+            "fitting",
+            "nice"
+        ],
+        [
+            "recommend",
+            "commend",
+            "urge",
+            "advocate"
+        ]
+    ]
+}
