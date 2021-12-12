@@ -1,5 +1,14 @@
 
- 
+.arie-rezultate {
+    height: 700px;
+    width: 80%;
+    margin: auto;
+} 
+
+.arie-rezultate pre {
+    height: 100%;
+    border: 1px solid #ccc;
+}
 .upload-component{
     height: 100%;
     display: grid; 
@@ -70,11 +79,8 @@ button:hover{
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 .page-container{
-    height: 100vh;
-    overflow-y: hidden;
-    display: grid; 
-    grid-template-rows: 30% 70%;
-    background-image: url('../../res/bg.png');
+    background-image: url(../../res/bg.png);
+    padding-bottom: 4rem;
 }
 
 .ssa-title{
@@ -88,14 +94,14 @@ button:hover{
     justify-content: center;
     align-items: center;
     background-color: #85A49E;
-    font-size: 2em;
+    font-size: 1.7em;
     text-align: center;
-    width: 34%;
     height: 25%;
     border: 0px solid black;
     border-radius: 1em;
     box-shadow: 10px 10px #E1E1E1;
     font-weight: bold;
+    padding: 0.5rem 1rem;
 }
 
 .ssa-upload{
@@ -115,19 +121,6 @@ button:hover{
     align-items: center;
 }
 
-.title{
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-    background-color: #85A49E;
-    font-size: 2em;
-    text-align: center;
-    width: 50%;
-    border: 0px solid black;
-    border-radius: 1em;
-    box-shadow: 10px 10px #E1E1E1;
-    font-weight: bold;
-}
 .dropdown{
     display: flex;
     justify-content: flex-end;
@@ -197,14 +190,14 @@ textarea{
 
 #ssa-file-upload::-webkit-file-upload-button {
     visibility: hidden;
-  }
-  #ssa-file-upload::before {
+}
+
+#ssa-file-upload::before {
     content: 'Cauta un fisier';
     display: inline-block;
     padding: 18px 40px;
     outline: none;
     white-space: nowrap;
-    -webkit-user-select: none;
     cursor: pointer;
     font-size: 10pt;
     background-color: #85A49E;
@@ -224,3 +217,4 @@ textarea{
   #file-name {
     font-size: 1.7rem;
   }
+  
