@@ -1,0 +1,226 @@
+
+ 
+.upload-component{
+    height: 100%;
+    display: grid; 
+    grid-template-rows: 40% 60%
+}
+
+.upload-component.uptext .browse-btn{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.upload-component.uptext .browse-btn button{
+
+}
+
+.upload-component.upfile button {
+
+}
+
+.ud-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropdown{
+    display: flex;
+    justify-content: flex-end;
+}
+select#formats{
+    background-color: #E1E1E1;
+    width: 250px;
+    margin: 0.5em;
+    border: 0px;
+    border-radius: 0.5em;
+    font-size: 30pt;
+    padding-top: 0.2em;
+    padding-left: 1em;
+    padding-bottom: 0.2em;
+    height: 74px;
+}
+
+select:active{
+    border: none;
+}
+
+.cf-title{
+    display: flex;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+.upload-form {
+    display: flex;
+    justify-items: flex-start;
+    flex-flow: column;
+}
+
+.browse-btn{
+    margin-top: 10px;
+}
+
+button:hover{
+    background-color: #576D69;
+}
+
+*{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+.page-container{
+    height: 100vh;
+    overflow-y: hidden;
+    display: grid; 
+    grid-template-rows: 30% 70%;
+    background-image: url('../../res/bg.png');
+}
+
+.ssa-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    background-color: #85A49E;
+    font-size: 2em;
+    text-align: center;
+    width: 34%;
+    height: 25%;
+    border: 0px solid black;
+    border-radius: 1em;
+    box-shadow: 10px 10px #E1E1E1;
+    font-weight: bold;
+}
+
+.ssa-upload{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.upload-component{
+    height: 100%;
+    display: grid; 
+    grid-template-rows: 40% 60%
+}
+
+.ud-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    background-color: #85A49E;
+    font-size: 2em;
+    text-align: center;
+    width: 50%;
+    border: 0px solid black;
+    border-radius: 1em;
+    box-shadow: 10px 10px #E1E1E1;
+    font-weight: bold;
+}
+.dropdown{
+    display: flex;
+    justify-content: flex-end;
+}
+select{
+    background-color: #E1E1E1;
+    width: 100%;
+    margin: 0.5em;
+    border: 0px;
+    border-radius: 0.5em;
+    font-size: 30pt;
+    padding-top: 0.2em;
+    padding-left: 1em;
+    padding-bottom: 0.2em;
+}
+
+select:active{
+    border: none;
+}
+
+.cf-title{
+    display: flex;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+button{
+    background-color: #85A49E;
+    border: none;
+    color: white;
+    font-size: 2em;
+    border-radius: 0.5em;
+    padding: 18px 40px;
+    margin-top: 10px;;
+}
+button:hover{
+    background-color: #576D69;
+}
+.text-input{
+    display: flex;
+    justify-content: center;
+}
+textarea{
+    resize: none;
+    width: 90%;
+    height: 10em;
+    background-color: #E1E1E1;
+    border: none; 
+    padding: 1em;
+    border-radius: 1em;
+    box-shadow: 10px 10px #576D69;
+}
+
+
+.choose-format {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#ssa-file-upload {
+    align-self: center;
+    width: 250px;
+}
+
+
+#ssa-file-upload::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  #ssa-file-upload::before {
+    content: 'Cauta un fisier';
+    display: inline-block;
+    padding: 18px 40px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    font-size: 10pt;
+    background-color: #85A49E;
+    border: none;
+    color: white;
+    font-size: 2em;
+    border-radius: 0.5em;
+
+  }
+  #ssa-file-upload:hover::before {
+    border-color: black;
+  }
+  #ssa-file-upload:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+  }
+
+  #file-name {
+    font-size: 1.7rem;
+  }

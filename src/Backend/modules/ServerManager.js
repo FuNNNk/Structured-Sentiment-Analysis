@@ -4,6 +4,7 @@ var express = require('express');
 const path = require('path');
 const fileUpload = require('express-fileupload');
 const aop = require('../aop')
+const cors = require('cors')
 
 const ConnectorService = require("./ConnectorService");
 const SecurityMiddleware = require("../monitoring/SecurityMiddleware");
@@ -22,6 +23,7 @@ class ServerManager{
     static startInstance(){
 
         var app = express();
+        app.use(cors())
 
         app.use(fileUpload());
 

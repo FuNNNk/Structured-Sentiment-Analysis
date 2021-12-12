@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<title>Structured Sentiment Analysis</title>
+
+<link rel="stylesheet" href="./main.css">
+<style>
+
+
+</style>
+
+<body>
+
+  <div class="page-container">
+    <div class="ssa-title">
+      <div class="title">
+        <p>
+          Structured
+          Sentiment
+          Analysis
+        </p>
+      </div>
+    </div>
+    <div class="ssa-upload">
+      <div class="upload-component upfile">
+        <div class="ud-title">
+          <div class="title">
+            <p>
+              Upload a document
+            </p>
+          </div>
+        </div>
+        <div class="ud-options">
+          <div  class="choose-format">
+            <div class="cf-title">
+              Choose a format:
+            </div>
+            <div>
+              <div class="dropdown">
+                <select name="formats" id="formats">
+                  <option value="TXT">.txt</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="upload-form">
+            <div>
+              <p id="file-name">Selecteaza un fisier</p>
+              <input id="ssa-file-upload" type="file" placeholder="Proposition for sentiment analysis..." />
+              <button id="ssa-file-upload-btn">Incarca si analizeaza</button>  
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="upload-component uptext">
+        <div class="ud-title">
+          <div class="title">
+            <p>
+              Drop some text!
+            </p>
+          </div>
+        </div>
+        <div class="ut-options">
+          <div class="text-input">
+            <textarea type="text">Input your text here...
+              </textarea>
+          </div>
+          <div class="browse-btn">
+            <button>Analizeaza</button>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+  <script src="./ssa-lib.js"></script>
+  <script src="./main.js"></script>
+</body>
+
+</html>
