@@ -14,7 +14,7 @@ window.ssa.uploadFile = function (file, filename) {
         success: function(data){
             console.log("uploaded", data);
             window.ssa.analise(filename);
-            poolingResults();
+            poolingResults(filename);
         },
         error: function(e) {
            console.log("error: ", e)
@@ -56,24 +56,26 @@ window.ssa.loader = function (state) {
     
 };
 
-function poolingResults() {
+function poolingResults(filename) {
     const tm = setTimeout(()=>{
         window.ssa.loader("start");
     }, 5000);
     
     $.ajax({
     url: "http://localhost:3000/stats",
+    data: {filename: filename},
     success: function(data){
 
         const sentimentResults = JSON.stringify(data, null, '\t');
         $("#rezultate").text(sentimentResults);
         window.ssa.loader("stop");
-        poolingResults();
+        poolingResults(filename);
 
     },
     error: function() {
-        poolingResults();
+        poolingResults(filename);
     },
+    filename: filename,
     timeout: 17000
     });
 };
