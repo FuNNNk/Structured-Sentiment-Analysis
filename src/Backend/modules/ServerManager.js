@@ -71,18 +71,8 @@ class ServerManager{
 
         app.get('/parser', middleware(
             function (req, res) {
-                const input = "Even though the price is decent for Paris, I would not recommend this hotel ."
-                const posInput = input.split(" ").map(w => {
-                    if (w=="decent") {
-                        return {word: w, type: 'adj'};
-                    } else if (w=="recommend") {
-                        return {word: w, type: 'verb'};
-                    }
-                    return {word: w, type: 'noun'};
-                });
-                console.log(posInput);
-
-                const rez = OpinionModule.buildSentimentTrainingDataStructure(posInput);
+                console.log(req.query.filename)
+                const rez = OpinionModule.buildSentimentTrainingDataStructure(req.query.filename);
                 res.send("Datele au fost salvate > ssa-training.txt");
             }
             

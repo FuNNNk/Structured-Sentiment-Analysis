@@ -28,7 +28,7 @@ function getAIConnectorStats (file) {
     let filename = file;
     let data = "no data"
     return () => {
-        const filePath = path.resolve(__dirname, '../../data-upload-storage/' + filename+"_results")
+        const filePath = path.resolve(__dirname, '../../data-upload-storage/' + filename+"_result")
         fs.readFile(filePath, 'utf8', function(err, d){
             data = d;
         });
