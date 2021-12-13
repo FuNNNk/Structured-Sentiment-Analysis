@@ -4,9 +4,15 @@ var express = require('express');
 const path = require('path');
 const fileUpload = require('express-fileupload');
 const aop = require('../aop')
+const cors = require('cors')
+
+var expressPooling = require("express-longpoll")
 
 const ConnectorService = require("./ConnectorService");
 const SecurityMiddleware = require("../monitoring/SecurityMiddleware");
+
+const OpinionModule = require("../opinionModules/opinionSeeds");
+
 
 const { securityMiddleware, originMiddleware, middlewareResolver } = SecurityMiddleware;
 
@@ -19,6 +25,7 @@ class ServerManager{
     static startInstance(){
 
         var app = express();
+        app.use(cors())
 
         app.use(fileUpload());
 
@@ -57,12 +64,34 @@ class ServerManager{
             }
         ));
 
-        app.get('/stats', middleware(
+
+        app.get('/parser', middleware(
             function (req, res) {
-                const stats = ConnectorService.getAIConnectorStats();
-                res.send(stats);
+                const input = "Even though the price is decent for Paris, I would not recommend this hotel ."
+                const posInput = input.split(" ").map(w => {
+                    if (w=="decent") {
+                        return {word: w, type: 'adj'};
+                    } else if (w=="recommend") {
+                        return {word: w, type: 'verb'};
+                    }
+                    return {word: w, type: 'noun'};
+                });
+                console.log(posInput);
+
+                const rez = OpinionModule.buildSentimentTrainingDataStructure(posInput);
+                res.send("Datele au fost salvate > ssa-training.txt");
             }
+            
         ));
+
+        const longpoll = expressPooling(app);
+        longpoll.create("/stats");
+        setInterval( function () {
+            // read the results from AI
+           const stats = ConnectorService.getAIConnectorStats();
+           longpoll.publish("/stats", stats);
+       }, 17000);
+
 
         app.listen(3000, function () {
             console.log('Example app listening on port 3000!');
