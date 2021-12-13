@@ -4,6 +4,9 @@ var express = require('express');
 const path = require('path');
 const fileUpload = require('express-fileupload');
 const aop = require('../aop')
+const cors = require('cors')
+
+var expressPooling = require("express-longpoll")
 
 const ConnectorService = require("./ConnectorService");
 const SecurityMiddleware = require("../monitoring/SecurityMiddleware");
@@ -22,6 +25,7 @@ class ServerManager{
     static startInstance(){
 
         var app = express();
+        app.use(cors())
 
         app.use(fileUpload());
 
@@ -60,13 +64,6 @@ class ServerManager{
             }
         ));
 
-        app.get('/stats', middleware(
-            function (req, res) {
-                const stats = ConnectorService.getAIConnectorStats();
-                res.send(stats);
-            }
-        ));
-
 
         app.get('/parser', middleware(
             function (req, res) {
@@ -86,6 +83,15 @@ class ServerManager{
             }
             
         ));
+
+        const longpoll = expressPooling(app);
+        longpoll.create("/stats");
+        setInterval( function () {
+            // read the results from AI
+           const stats = ConnectorService.getAIConnectorStats();
+           longpoll.publish("/stats", stats);
+       }, 17000);
+
 
         app.listen(3000, function () {
             console.log('Example app listening on port 3000!');

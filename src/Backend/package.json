@@ -7,8 +7,10 @@
   "dependencies": {
     "chai": "^4.3.4",
     "co-mocha": "^1.2.2",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
+    "express-longpoll": "0.0.6",
     "mocha-junit-reporter": "^2.0.2",
     "node-wordnet": "^0.1.12",
     "start": "^5.1.0",

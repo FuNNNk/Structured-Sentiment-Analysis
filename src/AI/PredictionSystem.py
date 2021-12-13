@@ -13,7 +13,7 @@ class PredictionSystem(metaclass=Singleton):
         # STRATEGY
 
         if alg_type == 'NN':
-            self.algorithm = NeuralNetworksAlg()
+            self.algorithm = NeuralNetworksAlg(weights_file_path='./models/best_model.hdf5')
         # else ...
 
     def train_model(self, data):
@@ -22,11 +22,11 @@ class PredictionSystem(metaclass=Singleton):
 
     def test_predictions(self, data):
         preprocessed_test_data = self.preprocessor.pre_process_input(data)
-        self.algorithm.test(preprocessed_test_data)
+        return self.algorithm.test(preprocessed_test_data)
 
     def predict_text(self, text):
         preprocessed_text = self.preprocessor.pre_process_input(text)
-        self.algorithm.predict_single_input(preprocessed_text)
+        return self.algorithm.predict_single_input(preprocessed_text)
 
     def save_model(self, file_path):
         self.algorithm.save_model(file_path)

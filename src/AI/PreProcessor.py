@@ -1,10 +1,14 @@
+import gensim as gensim
+
 from Singleton import Singleton
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 import json
 from aspectlib import Aspect
-
+import re
+import gensim
+from nltk.tokenize.treebank import TreebankWordDetokenizer
 
 # SINGLETON
 class PreProcessor(metaclass=Singleton):
@@ -15,35 +19,79 @@ class PreProcessor(metaclass=Singleton):
         else:
             self.text = None
 
-    def pre_process_input(self, text):
-        text = self._tokenize(text)
-        text = self._to_lowercase(text)
-        text = self._remove_stop_words(text)
-        text = self._stem_text(text)
+    def depure_data(self, text: str):
+
+        url_pattern = re.compile(r'https?://\S+|www\.\S+')
+        text = url_pattern.sub(r'', text)
+
+        text = re.sub(r'\S*@\S*\s?', '', text)
+
+        text = re.sub(r'\s+', ' ', text)
+
+        text = re.sub(r"\'", "", text)
+
+        text = re.sub(r"\’", "", text)
+
         return text
 
-    def _tokenize(self, text):
-        return word_tokenize(text)
+    def simple_preprocess(self, sentence):
+        return TreebankWordDetokenizer().detokenize(gensim.utils.simple_preprocess(self.depure_data(sentence), deacc=True))
 
-    def _to_lowercase(self, text):
-        lowercase_text = []
-        for word in text:
-            lowercase_text.append(word.lower())
-        return lowercase_text
+    def pre_process_input(self, text):
+        return self.simple_preprocess(self.depure_data(text))
 
-    def _remove_stop_words(self, text):
-        text_without_sw = []
-        for word in text:
-            if word not in stopwords.words():
-                text_without_sw.append(word)
-        return text_without_sw
+        # probably gonna be changed on the next iteration
 
-    def _stem_text(self, text):
-        porter = PorterStemmer()
-        stemmed_text = []
-        for word in text:
-            stemmed_text.append(porter.stem(word))
-        return stemmed_text
+
+        # text = self._tokenize(text)
+        # text = self._to_lowercase(text)
+        # text = self._remove_stop_words(text)
+        # text = self._stem_text(text)
+        # return text
+
+    # def _tokenize(self, text):
+    #     return word_tokenize(text)
+    #
+    # def _to_lowercase(self, text):
+    #     lowercase_text = []
+    #     for word in text:
+    #         lowercase_text.append(word.lower())
+    #     return lowercase_text
+    #
+    # def _remove_stop_words(self, text):
+    #     text_without_sw = []
+    #     for word in text:
+    #         if word not in stopwords.words():
+    #             text_without_sw.append(word)
+    #     return text_without_sw
+    #
+    # def _stem_text(self, text):
+    #     porter = PorterStemmer()
+    #     stemmed_text = []
+    #     for word in text:
+    #         stemmed_text.append(porter.stem(word))
+    #     return stemmed_text
+
+    def get_unstructured_dataset(self, ds, save_file_path):
+        output = []
+
+        for sent in ds:
+            try:
+                if sent["opinions"]:
+                    for opinion in sent["opinions"]:
+                        x = re.findall(r'^[a-zA-Z]+', str(opinion['Polar_expression'][0][0]))
+                        if x and opinion['Intensity'] and opinion['Polarity']:
+                            if len(opinion['Polar_expression'][0]) == 1:
+                                output.append({"text": opinion['Polar_expression'][0][0],
+                                               "Polarity": opinion['Polarity'] + '_' + opinion['Intensity'].replace('Average', 'Standard')})
+                            else:
+                                print(sent)
+                                print("More polar expressions for a target")
+            except TypeError as err:
+                print(f"{err=}")
+
+        with open(save_file_path, 'w') as f:
+            json.dump(output, f, indent=4)
 
 
 @Aspect(bind=True)
