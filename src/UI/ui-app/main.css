@@ -229,7 +229,6 @@ textarea{
 .loader {
   display: inline-block;
   left: 32px;
-  top: 24px;
   margin: 18px auto;
   font-size: 10px;
   position: relative;
