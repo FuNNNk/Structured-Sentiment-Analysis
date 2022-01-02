@@ -22,6 +22,10 @@ const middleware = middlewareResolver(pipe(securityMiddleware, originMiddleware)
 
 class ServerManager{
 
+    static store = {
+        file: "",
+    };
+
     static startInstance(){
 
         var app = express();
@@ -67,30 +71,34 @@ class ServerManager{
 
         app.get('/parser', middleware(
             function (req, res) {
-                const input = "Even though the price is decent for Paris, I would not recommend this hotel ."
-                const posInput = input.split(" ").map(w => {
-                    if (w=="decent") {
-                        return {word: w, type: 'adj'};
-                    } else if (w=="recommend") {
-                        return {word: w, type: 'verb'};
-                    }
-                    return {word: w, type: 'noun'};
-                });
-                console.log(posInput);
-
-                const rez = OpinionModule.buildSentimentTrainingDataStructure(posInput);
+                console.log(req.query.filename)
+                const rez = OpinionModule.buildSentimentTrainingDataStructure(req.query.filename);
                 res.send("Datele au fost salvate > ssa-training.txt");
             }
             
         ));
 
         const longpoll = expressPooling(app);
-        longpoll.create("/stats");
+        let resultsReaderFn = null;
+       
+       
+        longpoll.create("/stats", (req, res, next)=>{
+            if (!resultsReaderFn) {
+                resultsReaderFn = ConnectorService.getAIConnectorStats(req.query.filename)
+            }
+            // initializeaza un reader pentru un fisier nou
+            if ( ServerManager.store.file != req.query.filename) {
+                resultsReaderFn = ConnectorService.getAIConnectorStats(req.query.filename);
+            }
+
+            ServerManager.store.file = req.query.filename;
+            next();
+        });
+        
         setInterval( function () {
-            // read the results from AI
-           const stats = ConnectorService.getAIConnectorStats();
+            const stats = resultsReaderFn();
            longpoll.publish("/stats", stats);
-       }, 17000);
+        }, 17000);
 
 
         app.listen(3000, function () {

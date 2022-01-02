@@ -1,4 +1,6 @@
 import nltk
+import sys
+# nltk.download('punkt')
 import stanza
 from nltk.corpus import stopwords
 from nltk.corpus import wordnet as wn
@@ -145,6 +147,13 @@ def polar_expression_extraction(text):
             i += 1
     return polar_expressions
 
+def get_test_sentences(file):
+    sent_array = []
+    sentences_file = open(file, 'r')
+    lines = sentences_file.readlines()
+    for line in lines:
+        sent_array.append(line[:-1])
+    return sent_array
 
 t = "Even though the price is decent for Paris, I would not recommend this hotel."
 s = "Good muffins cost $3.88 in New York. Please buy me two of them. Thanks."
@@ -164,11 +173,22 @@ t12 = "Spacious room and modern style ( not old like in other polish hotel )"
 t13 = "Staff well prepared and kind ."
 t14 = "Spoiled the impression of the trip"
 
-print(polar_expression_extraction(t10), "\n")
-print(polar_expression_extraction(t11), "\n")
-print(polar_expression_extraction(t12), "\n")
-print(polar_expression_extraction(t13), "\n")
-print(polar_expression_extraction(t14), "\n")
+
+def main(args):
+    # print(args[1])
+    sent_array = get_test_sentences(args[1]+"\\"+args[2])
+    with open(args[1]+ "\\" + args[2] + "_result", 'w') as fileNew:
+        fileNew.write(str(polar_expression_extraction(sent_array[0])))
+
+
+if __name__ == "__main__":
+    main(sys.argv)
+
+# print(polar_expression_extraction(t10), "\n")
+# print(polar_expression_extraction(t11), "\n")
+# print(polar_expression_extraction(t12), "\n")
+# print(polar_expression_extraction(t13), "\n")
+# print(polar_expression_extraction(t14), "\n")
 
 # print(polar_expression_extraction(t),  "\n")
 # print(polar_expression_extraction(s),  "\n")

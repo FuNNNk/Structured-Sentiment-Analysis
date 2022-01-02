@@ -47,6 +47,7 @@
               <p id="file-name">Selecteaza un fisier</p>
               <input id="ssa-file-upload" type="file" placeholder="Proposition for sentiment analysis..." />
               <button id="ssa-file-upload-btn">Incarca si analizeaza</button>  
+             
             </div>
           </div>
 
@@ -70,18 +71,20 @@
           <div class="browse-btn">
             <button>Analizeaza</button>
           </div>
+          
         </div>
       </div>
 
 
     </div>
   </div>
-  <div class="loader"></div>
+ 
   <div class="arie-rezultate">
     <h2>Reultate analiza sentiment:</h2>
+    <div id="spinner" class="loader hide">Asteapta rezultate</div>
     <div>
       <pre id="rezultate">
-        Zona afisare resultate...
+        Zona afisare rezultate...
       </pre>
     </div>
   </div>

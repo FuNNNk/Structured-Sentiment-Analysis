@@ -1,4 +1,6 @@
 const aop = require('../aop')
+const fs = require('fs');
+const path = require('path');
 const AiSentimentConnector = require("./AISentimentConnector")
 var idr = require('./InputDataReceiver')
 var ods = require('./OutputDataSender')
@@ -22,18 +24,15 @@ function setAIConnector (text) {
     outputDataSender.sendText();
 }
 
-function getAIConnectorStats () {
-    const modelStat={
-        "sentiment":  AiSentimentConnector.getSentiment(),
-        "target": AiSentimentConnector.getTarget(),
-        "accuracy": AiSentimentConnector.readAccuracy(),
-        "positive-words": AiSentimentConnector.getPositiveWords(),
-        "negative-words": AiSentimentConnector.getNegativeWords()
-    }
-
-    return { 
-        data: modelStat,
-        info: "empty"
+function getAIConnectorStats (file) {
+    let filename = file;
+    let data = "no data"
+    return () => {
+        const filePath = path.resolve(__dirname, '../../data-upload-storage/' + filename+"_result")
+        fs.readFile(filePath, 'utf8', function(err, d){
+            data = d;
+        });
+        return data;
     }
 };
 

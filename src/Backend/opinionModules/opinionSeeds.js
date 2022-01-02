@@ -3,33 +3,28 @@ const WordnetUtils = require("./utils");
 
 const opinionAdj = ['properly', 'not'];
 const opinionVerb = ['recommend'];
+const { exec } = require("child_process");
 
 
-async function buildSentimentTrainingDataStructure(prop) {
-    const adjs = prop.filter(e => e.type == 'adj');
-    const verbs = prop.filter(e => e.type == 'verb');
-
-    console.log("Build Sentiment TrainingData Structure: ");
-    console.log(adjs);
-    const opinionAdj = adjs[0].word;
-    const opinionVerb = verbs[0].word;
-
-    const synsOpAdj = await WordnetUtils.lookupSyns(opinionAdj);
-    const synsOpVerb = await WordnetUtils.lookupSyns(opinionVerb);
-
-    const rezData = {
-        "Target": "",
-        "source": "",
-        "Polar_expression": [adjs.word, verbs.word],
-        "syns": [synsOpAdj, synsOpVerb]
+async function buildSentimentTrainingDataStructure(filename) {
+  
+  exec("(cd ..\\AI\\ && python preprocessing.py ..\\data-upload-storage " + filename + " )", (error, stdout, stderr) => {
+      if (error) {
+          console.log(`error: ${error.message}`);
+          return;
       }
+      if (stderr) {
+          console.log(`stderr: ${stderr}`);
+          return;
+      }
+      console.log(`stdout: ${stdout}`);
+  });
+    // fs.writeFile('./ssa-training.json', JSON.stringify(rezData), function (err) {
+    //     if (err) return console.log(err);
+    //     console.log('salvare date > ssa-training.txt');
+    //   });
 
-    fs.writeFile('./ssa-training.json', JSON.stringify(rezData), function (err) {
-        if (err) return console.log(err);
-        console.log('salvare date > ssa-training.txt');
-      });
-
-    return rezData;
+    // return rezData;
 }
 
 const Opinion = {
