@@ -276,7 +276,7 @@ def source_target_extraction(tokens):
                                                            f"Target: {objects[0]}"))
                                 flag = True
             subs, verbNegated = getAllSubs(v)
-            print(f'FLAG: {flag}')
+            # print(f'FLAG: {flag}')
             # print(f'subs: {subs}')
             if len(subs) > 0 and flag is False:
                 v, objs = getAllObjsWithAdjectives(v)
@@ -341,6 +341,12 @@ def generate_left_right_adjectives(obj):
     return obj_desc_tokens
 
 
+def get_position(sentence, expression):
+    length = len(expression)
+    index = sentence.find(expression)
+    return [f"{index}:{index + length}"]
+
+
 def get_test_sentences(file):
     sent_array = []
     sentences_file = open(file, 'r')
@@ -379,16 +385,26 @@ def write_list_into_file(list):
 def print_one_sentence(sent):
     p_sentence = nlp(sent)
     parsed_sentences.append(p_sentence)
-    print(f'Sentence: {sent} \nSource/Target: {source_target_extraction(p_sentence)}')
+    source_target = source_target_extraction(p_sentence)
+    print(f'Sentence: {sent} \nSource/Target: {source_target}')
+    positions_list = []
+    for item in source_target:
+        source = item[0][8::]
+        target = item[1][8::]
+        if source:
+            positions_list.append(get_position(sent, source))
+        if target:
+            positions_list.append(get_position(sent, target))
+    print(f"Source/Target positions: {positions_list}")
     for p_word in p_sentence:
         print(f'word: {p_word.text} | '
               f'pos: {p_word.pos_} | '
               f'pos-explain: {spacy.explain(p_word.pos_)} | '
               f'dep: {p_word.dep_}, | '
               f'dep-explain: {spacy.explain(p_word.dep_)}')
-    p_svg = spacy.displacy.render(p_sentence, style="dep")
-    p_output_path = Path(os.path.join("./", "sentence.svg"))
-    p_output_path.open('w', encoding='utf-8').write(p_svg)
+    # p_svg = spacy.displacy.render(p_sentence, style="dep")
+    # p_output_path = Path(os.path.join("./", "sentence.svg"))
+    # p_output_path.open('w', encoding='utf-8').write(p_svg)
 
 
 def print_all_sentences(sentences_list):
@@ -401,4 +417,4 @@ def print_all_sentences(sentences_list):
 
 
 print_all_sentences(sentences)
-# print_one_sentence(sentences[1])
+# print_one_sentence("Even though the price is decent for Paris , I would not recommend this hotel .")
