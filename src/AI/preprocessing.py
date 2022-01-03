@@ -1,12 +1,9 @@
 import nltk
 import sys
-# nltk.download('punkt')
-import stanza
-from nltk.corpus import stopwords
 from nltk.corpus import wordnet as wn
 from nltk.corpus import sentiwordnet as swn
 from nltk.stem import WordNetLemmatizer
-from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.tokenize import word_tokenize
 
 
 def tokenization(text):
@@ -115,9 +112,9 @@ def polar_expression_extraction(text):
                     i += 1
                 if len(expression) > len(senti_list[adv_index]["Word"]) + 1:
                     polar_expressions.append(expression)
-            if senti_list[i-1]["POS"] == "MD":
-                print(senti_list[i-1]["Word"])
-                expression = senti_list[i-1]["Word"] + " "
+            if senti_list[i - 1]["POS"] == "MD":
+                print(senti_list[i - 1]["Word"])
+                expression = senti_list[i - 1]["Word"] + " "
                 while senti_list[i]["POS"] in verbs or senti_list[i]["POS"] in adverbs:
                     expression += senti_list[i]["Word"] + " "
                     i += 1
@@ -136,7 +133,7 @@ def polar_expression_extraction(text):
                 # else:
                 #     i += 1
                 if len(expression) > len(senti_list[index]["Word"]) + 1:
-                    if senti_list[i]["POS"] in adjectives and senti_list[i-1]["POS"] in adverbs:
+                    if senti_list[i]["POS"] in adjectives and senti_list[i - 1]["POS"] in adverbs:
                         polar_expressions.append(expression + senti_list[i]["Word"])
                         i += 1
                     else:
@@ -147,6 +144,7 @@ def polar_expression_extraction(text):
             i += 1
     return polar_expressions
 
+
 def get_test_sentences(file):
     sent_array = []
     sentences_file = open(file, 'r')
@@ -154,6 +152,7 @@ def get_test_sentences(file):
     for line in lines:
         sent_array.append(line[:-1])
     return sent_array
+
 
 t = "Even though the price is decent for Paris, I would not recommend this hotel."
 s = "Good muffins cost $3.88 in New York. Please buy me two of them. Thanks."
@@ -176,8 +175,8 @@ t14 = "Spoiled the impression of the trip"
 
 def main(args):
     # print(args[1])
-    sent_array = get_test_sentences(args[1]+"\\"+args[2])
-    with open(args[1]+ "\\" + args[2] + "_result", 'w') as fileNew:
+    sent_array = get_test_sentences(args[1] + "\\" + args[2])
+    with open(args[1] + "\\" + args[2] + "_result", 'w') as fileNew:
         fileNew.write(str(polar_expression_extraction(sent_array[0])))
 
 
@@ -200,22 +199,3 @@ if __name__ == "__main__":
 # print(polar_expression_extraction(t7), "\n")
 # print(polar_expression_extraction(t8), "\n")
 # print(polar_expression_extraction(t9), "\n")
-
-
-
-
-
-#####   Stanza for POS tagging   #####
-# nlp = stanza.Pipeline(lang='en', processors='tokenize,pos')
-# doc = nlp(text)
-# print(doc.sentences[0].words[0].xpos)
-# print(*[f'word: {word.text}\tupos: {word.upos}\txpos: {word.xpos}\tfeats: {word.feats if word.feats else "_"}' for sent in doc.sentences for word in sent.words], sep='\n')
-
-
-#####   Stanza for sentence tokenization   #####
-# sentence_tokenize = [word_tokenize(t) for t in sent_tokenize(s)]
-# print(sentence_tokenize)
-#
-# nlp = stanza.Pipeline(lang='en', processors='tokenize')
-# doc = nlp(text)
-# print([sentence.text for sentence in doc.sentences])

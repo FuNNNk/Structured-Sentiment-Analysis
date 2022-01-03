@@ -12,6 +12,7 @@ ADJECTIVES = ["acomp", "advcl", "advmod", "amod", "appos", "nn", "nmod", "ccomp"
 COMPOUNDS = ["compound"]
 PREPOSITIONS = ["prep"]
 AUX_VERBS = ["was", "is", "am", "were", "are", "have", "has", "had", "been"]
+DETERMINERS = ["determiner"]
 
 
 def getSubsFromConjunctions(subs):
@@ -270,8 +271,6 @@ def source_target_extraction(tokens):
                                     adjectives.extend(tokens[j].text)
                                 j += 1
                                 count += 1
-                            # if tokens[i+1].pos_ == "ADJ":
-                            #     adjectives.extend(tokens[i+1].text)
                             if adjectives:
                                 source_target_list.append(("Source: ",
                                                            f"Target: {objects[0]}"))
@@ -319,7 +318,7 @@ def source_target_extraction(tokens):
 def generate_sub_compound(sub):
     sub_compunds = []
     for tok in sub.lefts:
-        if tok.dep_ in COMPOUNDS:
+        if tok.dep_ in COMPOUNDS or tok.pos_ == "DET" or tok.dep_ in "possession modifier":
             sub_compunds.extend(generate_sub_compound(tok))
     sub_compunds.append(sub)
     for tok in sub.rights:
@@ -329,17 +328,16 @@ def generate_sub_compound(sub):
 
 
 def generate_left_right_adjectives(obj):
-    obj_desc_tokens = [obj]
-    # for tok in obj.lefts:
-    #     if tok.dep_ in ADJECTIVES:
-    #         obj_desc_tokens.extend(generate_left_right_adjectives(tok))
+    obj_desc_tokens = []
+    for tok in obj.lefts:
+        # if tok.dep_ in ADJECTIVES or tok.pos_ == "DET":
+        if tok.pos_ == "DET" or tok.dep_ in "possession modifier":
+            obj_desc_tokens.extend(generate_left_right_adjectives(tok))
+    obj_desc_tokens.append(obj)
 
     for tok in obj.rights:
+        # if tok.dep_ in ADJECTIVES:
         obj_desc_tokens.extend(generate_left_right_adjectives(tok))
-        # for i in tok.rights:
-        #     if i.dep_ in OBJECTS:
-        # obj_desc_tokens.extend(generate_left_right_adjectives(i))
-
     return obj_desc_tokens
 
 
@@ -358,31 +356,11 @@ counter = 0
 parsed_sentences = []
 
 
-# for sentence in sentences:
-#     print(f'\nCOUNT: {counter}\n')
-#     counter += 1
-#     print(f'{sentence}\n')
-#     parsed_sentence = nlp(sentence)
-#     parsed_sentences.append(parsed_sentence)
-#     print(f'SVAO nr. {counter}: {findSVAOs(parsed_sentence)}')
-#     for word in parsed_sentence:
-#         print(f'word: {word.text} | '
-#               f'pos: {word.pos_} | '
-#               f'pos-explain: {spacy.explain(word.pos_)} | '
-#               f'dep: {word.dep_}, | '
-#               f'dep-explain: {spacy.explain(word.dep_)}')
-#
-# svg = spacy.displacy.render(parsed_sentences[21], style="dep")
-# output_path = Path(os.path.join("./", "sentence.svg"))
-# output_path.open('w', encoding='utf-8').write(svg)
-
-
 def json_file_parser(file):
     with open(file) as f:
         load_file = json.load(f)
     texts_from_file = []
     for dic in load_file:
-        # print(dic)
         texts_from_file.append(dic["text"])
     return texts_from_file
 
@@ -394,8 +372,8 @@ def write_list_into_file(list):
     textfile.close()
 
 
-sentence_list = json_file_parser('./Training data/train1.json')
-write_list_into_file(sentence_list)
+# sentence_list = json_file_parser('./Training data/train1.json')
+# write_list_into_file(sentence_list)
 
 
 def print_one_sentence(sent):
@@ -423,7 +401,4 @@ def print_all_sentences(sentences_list):
 
 
 print_all_sentences(sentences)
-# print_one_sentence(sentences[0])
-
-
-# print(f'\n{parsed_sentences[0][2].pos_}, {spacy.explain(parsed_sentences[0][0].rights)}')
+# print_one_sentence(sentences[1])
