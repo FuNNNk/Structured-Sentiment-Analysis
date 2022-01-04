@@ -1,8 +1,5 @@
 import json
-import os.path
-from pathlib import Path
 import spacy
-from spacy import displacy
 
 
 SUBJECTS = ["nsubj", "nsubjpass", "csubj", "csubjpass", "agent", "expl"]
@@ -18,7 +15,6 @@ DETERMINERS = ["determiner"]
 def getSubsFromConjunctions(subs):
     moreSubs = []
     for sub in subs:
-        # rights is a generator
         rights = list(sub.rights)
         rightDeps = {tok.lower_ for tok in rights}
         if "and" in rightDeps:
@@ -31,7 +27,6 @@ def getSubsFromConjunctions(subs):
 def getObjsFromConjunctions(objs):
     moreObjs = []
     for obj in objs:
-        # rights is a generator
         rights = list(obj.rights)
         rightDeps = {tok.lower_ for tok in rights}
         if "and" in rightDeps:
@@ -123,6 +118,7 @@ def getAllObjsWithAdjectives(v):
     if len(objs) > 0:
         objs.extend(getObjsFromConjunctions(objs))
     return v, objs
+
 
 def source_target_extraction(tokens):
     source_target_list = []
@@ -285,9 +281,9 @@ def json_file_parser(file):
     return texts_from_file
 
 
-def write_list_into_file(list):
+def write_list_into_file(list_of_sentences):
     textfile = open("sentences2.txt", "ab")
-    for element in list:
+    for element in list_of_sentences:
         textfile.write(element.encode("UTF-8") + " ".encode("UTF-8") + '\n'.encode('UTF-8'))
     textfile.close()
 
@@ -310,12 +306,12 @@ def return_output(sentence):
 
 
 def print_all_sentences(sentences_list):
-    counter = 0
+    count = 0
     for sent in sentences_list:
-        print(counter)
+        print(count)
         print(return_output(sent))
         print('\n')
-        counter += 1
+        count += 1
 
 
 # print(print_all_sentences(sentences))

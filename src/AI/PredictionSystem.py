@@ -28,7 +28,7 @@ class PredictionSystem(metaclass=Singleton):
 
     def predict_text(self, text):
         """
-        Extract source, target, polarity expression
+        Extracting source, target, polar expression
         """
         opinions = []
 
@@ -54,6 +54,5 @@ class PredictionSystem(metaclass=Singleton):
 
 if __name__ == "__main__":
     predict = PredictionSystem()
-    #print(predict.predict_text("Even though the price is decent for Paris , I would not recommend this hotel ."))
-
+    # print(predict.predict_text("Even though the price is decent for Paris , I would not recommend this hotel ."))
     print(predict.predict_text("It is raining."))
