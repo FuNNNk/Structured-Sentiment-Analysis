@@ -159,16 +159,16 @@ def get_test_sentences(file):
     return sent_array
 
 
-# t = "Even though the price is decent for Paris, I would not recommend this hotel."
+# t = "Donald Trump is the worst president of USA, but Hillary is better than him."
 # print(polar_expression_extraction(t))
 
 
-def main(args):
-    # print(args[1])
-    sent_array = get_test_sentences(args[1] + "\\" + args[2])
-    with open(args[1] + "\\" + args[2] + "_result", 'w') as fileNew:
-        fileNew.write(str(polar_expression_extraction(sent_array[0])))
-
-
-if __name__ == "__main__":
-    main(sys.argv)
+# def main(args):
+#     # print(args[1])
+#     sent_array = get_test_sentences(args[1] + "\\" + args[2])
+#     with open(args[1] + "\\" + args[2] + "_result", 'w') as fileNew:
+#         fileNew.write(str(polar_expression_extraction(sent_array[0])))
+#
+#
+# if __name__ == "__main__":
+#     main(sys.argv)

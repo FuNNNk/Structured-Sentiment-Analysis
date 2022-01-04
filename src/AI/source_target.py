@@ -1,6 +1,7 @@
 import json
 import spacy
 
+nlp = spacy.load('en_core_web_sm')
 
 SUBJECTS = ["nsubj", "nsubjpass", "csubj", "csubjpass", "agent", "expl"]
 OBJECTS = ["dobj", "dative", "attr", "oprd", "pobj", "npadvmod"]
@@ -266,10 +267,9 @@ def get_test_sentences(file):
     return sent_array
 
 
-sentences = get_test_sentences('sentences.txt')
-nlp = spacy.load('en_core_web_sm')
-counter = 0
-parsed_sentences = []
+# sentences = get_test_sentences('sentences.txt')
+# counter = 0
+# parsed_sentences = []
 
 
 def json_file_parser(file):
@@ -294,7 +294,7 @@ def write_list_into_file(list_of_sentences):
 
 def return_output(sentence):
     p_sentence = nlp(sentence)
-    parsed_sentences.append(p_sentence)
+    # parsed_sentences.append(p_sentence)
     source_target = source_target_extraction(p_sentence)
     positions_list = []
     for item in source_target:
@@ -315,4 +315,4 @@ def print_all_sentences(sentences_list):
 
 
 # print(print_all_sentences(sentences))
-# print_one_sentence("Even though the price is decent for Paris , I would not recommend this hotel .")
+# print(return_output("Donald Trump is the worst president of USA, but Hillary is better than him."))
