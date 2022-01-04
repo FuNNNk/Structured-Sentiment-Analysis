@@ -2,6 +2,7 @@ from PredictionSystem import PredictionSystem
 import sys
 import argparse
 import os
+import json
 
 
 """
@@ -11,13 +12,13 @@ Parse input arguments for prediction and type of algorithm
 # Create parser
 parser = argparse.ArgumentParser(description="Input arguments parser")
 
-# Add arguments
-# parser.add_argument("-train", "--train",
-#                     action="store_true",
-#                     help="The argument that indicates the fact that data in the file is for training.")
-# parser.add_argument("-test", "--test",
-#                     action="store_true",
-#                     help="The argument that indicates the fact that data in the file is for testing.")
+
+parser.add_argument("-train", "--train",
+                    action="store_true",
+                    help="The argument that indicates the fact that data in the file is for training.")
+parser.add_argument("-test", "--test",
+                    action="store_true",
+                    help="The argument that indicates the fact that data in the file is for testing.")
 parser.add_argument("-predict", "--predict",
                     action="store_true",
                     help="The argument that indicates the fact that data in the file is for prediction.")
@@ -43,12 +44,17 @@ else:
         if options[0] and algorithm[0]:     # Predict with a neural network
             prediction_system = PredictionSystem('NN')
 
-            with open(file_path, 'r+') as f:
+            with open(file_path, 'r') as f:
                 text = f.read()
                 prediction = prediction_system.predict_text(text)
-                # write at the top of the file the prediction for the text
-                f.seek(0)
-                f.write(prediction + '\n' + text)
+                output = {
+                        "sent_id": file_path,
+                        "text": text,
+                        "opinions": prediction
+                }
+                print(prediction)
+                with open(file_path.replace('.txt', '.json'), 'w') as output_file:
+                    json.dump(output, output_file)
 
         else:
             print("\n Some arguments are missing! Check out and run again... \n ...or enter 'main.py -h' to see the "

@@ -28,7 +28,7 @@ class PredictionSystem(metaclass=Singleton):
 
     def predict_text(self, text):
         """
-        Extract source, target, polarity expression
+        Extract source, target, polar expression and predict the sentiment
         """
         opinions = []
 
@@ -42,9 +42,15 @@ class PredictionSystem(metaclass=Singleton):
         target_positions_list = [sour_tar_positions_list[i] for i in range(len(sour_tar_positions_list)) if i % 2 == 1]
 
         for item in zip(sour_tar, source_positions_list, target_positions_list, polar_expr, polar_expr_positions_list):
+            prediction = self.algorithm.predict_single_input(item[3])
+            polarity, intensity = prediction.split('_')
             opinions.append({"Source": [[item[0][0][8::]] if item[0][0][8::] else [], item[1]],
                              "Target": [[item[0][1][8::]] if item[0][1][8::] else [], item[2]],
-                             "Polar_expression": [[item[3]] if item[3] else [], item[4]]})
+                             "Polar_expression": [[item[3]] if item[3] else [], item[4]],
+                             "Polarity": polarity,
+                             "Intensity": intensity
+                             }
+            )
 
         return opinions
 
@@ -56,4 +62,4 @@ if __name__ == "__main__":
     predict = PredictionSystem()
     #print(predict.predict_text("Even though the price is decent for Paris , I would not recommend this hotel ."))
 
-    print(predict.predict_text("It is raining."))
+    print(predict.predict_text("The hotel was a little bit shabby on first appearances but the room was absolutely fine !"))

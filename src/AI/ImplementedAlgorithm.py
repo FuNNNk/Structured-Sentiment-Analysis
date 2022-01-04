@@ -33,7 +33,7 @@ class NeuralNetworksAlg(Algorithm):
         if 'weights_file_path' in kwargs:
             try:
                 self.model.load_weights(kwargs['weights_file_path'])
-            except FileNotFoundError as err:
+            except FileNotFoundError as error:
                 print("Could not find the model weights at the file destination, initializing new model")
                 exit(0)
 
