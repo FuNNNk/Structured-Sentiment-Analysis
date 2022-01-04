@@ -58,8 +58,3 @@ class PredictionSystem(metaclass=Singleton):
         self.algorithm.save_model(file_path)
 
 
-if __name__ == "__main__":
-    predict = PredictionSystem()
-    #print(predict.predict_text("Even though the price is decent for Paris , I would not recommend this hotel ."))
-
-    print(predict.predict_text("The hotel was a little bit shabby on first appearances but the room was absolutely fine !"))

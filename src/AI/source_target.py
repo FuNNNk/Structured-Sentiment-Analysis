@@ -1,9 +1,7 @@
 import json
-import os.path
-from pathlib import Path
 import spacy
-from spacy import displacy
 
+nlp = spacy.load('en_core_web_sm')
 
 SUBJECTS = ["nsubj", "nsubjpass", "csubj", "csubjpass", "agent", "expl"]
 OBJECTS = ["dobj", "dative", "attr", "oprd", "pobj", "npadvmod"]
@@ -18,7 +16,6 @@ DETERMINERS = ["determiner"]
 def getSubsFromConjunctions(subs):
     moreSubs = []
     for sub in subs:
-        # rights is a generator
         rights = list(sub.rights)
         rightDeps = {tok.lower_ for tok in rights}
         if "and" in rightDeps:
@@ -31,7 +28,6 @@ def getSubsFromConjunctions(subs):
 def getObjsFromConjunctions(objs):
     moreObjs = []
     for obj in objs:
-        # rights is a generator
         rights = list(obj.rights)
         rightDeps = {tok.lower_ for tok in rights}
         if "and" in rightDeps:
@@ -123,6 +119,7 @@ def getAllObjsWithAdjectives(v):
     if len(objs) > 0:
         objs.extend(getObjsFromConjunctions(objs))
     return v, objs
+
 
 def source_target_extraction(tokens):
     source_target_list = []
@@ -270,10 +267,9 @@ def get_test_sentences(file):
     return sent_array
 
 
-sentences = get_test_sentences('sentences.txt')
-nlp = spacy.load('en_core_web_sm')
-counter = 0
-parsed_sentences = []
+# sentences = get_test_sentences('sentences.txt')
+# counter = 0
+# parsed_sentences = []
 
 
 def json_file_parser(file):
@@ -285,9 +281,9 @@ def json_file_parser(file):
     return texts_from_file
 
 
-def write_list_into_file(list):
+def write_list_into_file(list_of_sentences):
     textfile = open("sentences2.txt", "ab")
-    for element in list:
+    for element in list_of_sentences:
         textfile.write(element.encode("UTF-8") + " ".encode("UTF-8") + '\n'.encode('UTF-8'))
     textfile.close()
 
@@ -298,7 +294,7 @@ def write_list_into_file(list):
 
 def return_output(sentence):
     p_sentence = nlp(sentence)
-    parsed_sentences.append(p_sentence)
+    # parsed_sentences.append(p_sentence)
     source_target = source_target_extraction(p_sentence)
     positions_list = []
     for item in source_target:
@@ -310,13 +306,13 @@ def return_output(sentence):
 
 
 def print_all_sentences(sentences_list):
-    counter = 0
+    count = 0
     for sent in sentences_list:
-        print(counter)
+        print(count)
         print(return_output(sent))
         print('\n')
-        counter += 1
+        count += 1
 
 
 # print(print_all_sentences(sentences))
-# print_one_sentence("Even though the price is decent for Paris , I would not recommend this hotel .")
+# print(return_output("Donald Trump is the worst president of USA, but Hillary is better than him."))
