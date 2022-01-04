@@ -8,7 +8,7 @@ const { exec } = require("child_process");
 
 async function buildSentimentTrainingDataStructure(filename) {
   
-  exec("(cd ..\\AI\\ && python preprocessing.py ..\\data-upload-storage " + filename + " )", (error, stdout, stderr) => {
+  exec("(cd ..\\AI\\ && python main.py -nn -predict ..\\data-upload-storage\\" + filename + " )", (error, stdout, stderr) => {
       if (error) {
           console.log(`error: ${error.message}`);
           return;
