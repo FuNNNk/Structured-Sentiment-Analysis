@@ -84,7 +84,7 @@ def polar_expression_extraction(text):
             "Pol-Scores": get_sentiment(word, tag),
             "Polarity": pos_neg(word, tag)
         })
-        print((word, tag), get_sentiment(word, tag), pos_neg(word, tag))
+        # print((word, tag), get_sentiment(word, tag), pos_neg(word, tag))
     polar_expressions = []
     i = 0
     while i < len(senti_list):
@@ -113,7 +113,7 @@ def polar_expression_extraction(text):
                 if len(expression) > len(senti_list[adv_index]["Word"]) + 1:
                     polar_expressions.append(expression)
             if senti_list[i - 1]["POS"] == "MD":
-                print(senti_list[i - 1]["Word"])
+                # print(senti_list[i - 1]["Word"])
                 expression = senti_list[i - 1]["Word"] + " "
                 while senti_list[i]["POS"] in verbs or senti_list[i]["POS"] in adverbs:
                     expression += senti_list[i]["Word"] + " "

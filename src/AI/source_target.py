@@ -41,17 +41,6 @@ def getObjsFromConjunctions(objs):
     return moreObjs
 
 
-# def getVerbsFromConjunctions(verbs):
-#     moreVerbs = []
-#     for verb in verbs:
-#         rightDeps = {tok.lower_ for tok in verb.rights}
-#         if "and" in rightDeps:
-#             moreVerbs.extend([tok for tok in verb.rights if tok.pos_ == "VERB"])
-#             if len(moreVerbs) > 0:
-#                 moreVerbs.extend(getVerbsFromConjunctions(moreVerbs))
-#     return moreVerbs
-
-
 def findSubs(tok):
     head = tok.head
     while head.pos_ != "VERB" and head.pos_ != "NOUN" and head.head != head:
@@ -77,17 +66,6 @@ def isNegated(tok):
     return False
 
 
-# def findSVs(tokens):
-#     svs = []
-#     verbs = [tok for tok in tokens if tok.pos_ == "VERB"]
-#     for v in verbs:
-#         subs, verbNegated = getAllSubs(v)
-#         if len(subs) > 0:
-#             for sub in subs:
-#                 svs.append((sub.orth_, "!" + v.orth_ if verbNegated else v.orth_))
-#     return svs
-
-
 def getObjsFromPrepositions(deps):
     objs = []
     for dep in deps:
@@ -95,32 +73,6 @@ def getObjsFromPrepositions(deps):
             objs.extend(
                 [tok for tok in dep.rights if tok.dep_ in OBJECTS or (tok.pos_ == "PRON" and tok.lower_ == "me")])
     return objs
-
-
-# def getAdjectives(toks):
-#     toks_with_adjectives = []
-#     for tok in toks:
-#         adjs = [left for left in tok.lefts if left.dep_ in ADJECTIVES]
-#         adjs.append(tok)
-#         adjs.extend([right for right in tok.rights if tok.dep_ in ADJECTIVES])
-#         tok_with_adj = " ".join([adj.lower_ for adj in adjs])
-#         toks_with_adjectives.extend(adjs)
-#
-#     return toks_with_adjectives
-
-
-# def getObjsFromAttrs(deps):
-#     for dep in deps:
-#         if dep.pos_ == "NOUN" and dep.dep_ == "attr":
-#             verbs = [tok for tok in dep.rights if tok.pos_ == "VERB"]
-#             if len(verbs) > 0:
-#                 for v in verbs:
-#                     rights = list(v.rights)
-#                     objs = [tok for tok in rights if tok.dep_ in OBJECTS]
-#                     objs.extend(getObjsFromPrepositions(rights))
-#                     if len(objs) > 0:
-#                         return v, objs
-#     return None, None
 
 
 def getObjFromXComp(deps):
@@ -147,21 +99,6 @@ def getAllSubs(v):
     return subs, verbNegated
 
 
-# def getAllObjs(v):
-#     # rights is a generator
-#     rights = list(v.rights)
-#     objs = [tok for tok in rights if tok.dep_ in OBJECTS]
-#     objs.extend(getObjsFromPrepositions(rights))
-#
-#     potentialNewVerb, potentialNewObjs = getObjFromXComp(rights)
-#     if potentialNewVerb is not None and potentialNewObjs is not None and len(potentialNewObjs) > 0:
-#         objs.extend(potentialNewObjs)
-#         v = potentialNewVerb
-#     if len(objs) > 0:
-#         objs.extend(getObjsFromConjunctions(objs))
-#     return v, objs
-
-
 def getAllObjsWithAdjectives(v):
     rights = list(v.rights)
     rights_children = rights
@@ -173,21 +110,11 @@ def getAllObjsWithAdjectives(v):
         if tok.dep_ in OBJECTS:
             objs.append(tok)
 
-    # objs = [tok for tok in rights if tok.dep_ in OBJECTS]
-    # print(f'FROM GETALLOBJSWITHADJ: {objs}')
     lefts = list(v.lefts)
     if len(objs) == 0:
         objs = [tok for tok in rights if tok.dep_ in OBJECTS]
     if len(objs) == 0:
         objs = [tok for tok in lefts if tok.dep_ in OBJECTS]
-
-    # SAME AS ABOVE WITH ADJ
-    # if len(objs) == 0:
-    #     objs = [tok for tok in rights if tok.dep_ in ADJECTIVES or tok.dep_ in OBJECTS]
-    # if len(objs) == 0:
-    #     objs = [tok for tok in lefts if tok.dep_ in ADJECTIVES or tok.dep_ in OBJECTS]
-
-    # objs.extend(getObjsFromPrepositions(rights))
 
     potentialNewVerb, potentialNewObjs = getObjFromXComp(rights)
     if potentialNewVerb is not None and potentialNewObjs is not None and len(potentialNewObjs) > 0:
@@ -196,22 +123,6 @@ def getAllObjsWithAdjectives(v):
     if len(objs) > 0:
         objs.extend(getObjsFromConjunctions(objs))
     return v, objs
-
-
-# def findSVOs(tokens):
-#     svos = []
-#     verbs = [tok for tok in tokens if tok.pos_ == "VERB" and tok.dep_ != "aux"]
-#     for v in verbs:
-#         subs, verbNegated = getAllSubs(v)
-#         # hopefully there are subs, if not, don't examine this verb any longer
-#         if len(subs) > 0:
-#             v, objs = getAllObjs(v)
-#             for sub in subs:
-#                 for obj in objs:
-#                     objNegated = isNegated(obj)
-#                     svos.append((sub.lower_, "!" + v.lower_ if verbNegated or objNegated else v.lower_, obj.lower_))
-#     return svos
-
 
 def source_target_extraction(tokens):
     source_target_list = []
@@ -330,8 +241,8 @@ def generate_sub_compound(sub):
 def generate_left_right_adjectives(obj):
     obj_desc_tokens = []
     for tok in obj.lefts:
-        # if tok.dep_ in ADJECTIVES or tok.pos_ == "DET":
-        if tok.pos_ == "DET" or tok.dep_ in "possession modifier":
+        # if tok.pos_ == "DET" or tok.dep_ in "possession modifier":
+        if tok.dep_ in ADJECTIVES or tok.pos_ == "DET" or tok.dep_ in "possession modifier":
             obj_desc_tokens.extend(generate_left_right_adjectives(tok))
     obj_desc_tokens.append(obj)
 
@@ -344,7 +255,10 @@ def generate_left_right_adjectives(obj):
 def get_position(sentence, expression):
     length = len(expression)
     index = sentence.find(expression)
-    return [f"{index}:{index + length}"]
+    if length != 0:
+        return [f"{index}:{index + length}"]
+    else:
+        return []
 
 
 def get_test_sentences(file):
@@ -382,39 +296,27 @@ def write_list_into_file(list):
 # write_list_into_file(sentence_list)
 
 
-def print_one_sentence(sent):
-    p_sentence = nlp(sent)
+def return_output(sentence):
+    p_sentence = nlp(sentence)
     parsed_sentences.append(p_sentence)
     source_target = source_target_extraction(p_sentence)
-    print(f'Sentence: {sent} \nSource/Target: {source_target}')
     positions_list = []
     for item in source_target:
         source = item[0][8::]
         target = item[1][8::]
-        if source:
-            positions_list.append(get_position(sent, source))
-        if target:
-            positions_list.append(get_position(sent, target))
-    print(f"Source/Target positions: {positions_list}")
-    for p_word in p_sentence:
-        print(f'word: {p_word.text} | '
-              f'pos: {p_word.pos_} | '
-              f'pos-explain: {spacy.explain(p_word.pos_)} | '
-              f'dep: {p_word.dep_}, | '
-              f'dep-explain: {spacy.explain(p_word.dep_)}')
-    # p_svg = spacy.displacy.render(p_sentence, style="dep")
-    # p_output_path = Path(os.path.join("./", "sentence.svg"))
-    # p_output_path.open('w', encoding='utf-8').write(p_svg)
+        positions_list.append(get_position(sentence, source))
+        positions_list.append(get_position(sentence, target))
+    return source_target, positions_list
 
 
 def print_all_sentences(sentences_list):
     counter = 0
     for sent in sentences_list:
         print(counter)
-        print_one_sentence(sent)
+        print(return_output(sent))
         print('\n')
         counter += 1
 
 
-print_all_sentences(sentences)
+# print(print_all_sentences(sentences))
 # print_one_sentence("Even though the price is decent for Paris , I would not recommend this hotel .")

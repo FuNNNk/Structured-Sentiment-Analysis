@@ -1,14 +1,11 @@
-import gensim as gensim
-
-from Singleton import Singleton
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer
-import json
-from aspectlib import Aspect
 import re
 import gensim
+from aspectlib import Aspect
+from Singleton import Singleton
+import json
 from nltk.tokenize.treebank import TreebankWordDetokenizer
+from Singleton import Singleton
+
 
 # SINGLETON
 class PreProcessor(metaclass=Singleton):
@@ -71,6 +68,7 @@ class PreProcessor(metaclass=Singleton):
     #     for word in text:
     #         stemmed_text.append(porter.stem(word))
     #     return stemmed_text
+
 
     def get_unstructured_dataset(self, ds, save_file_path):
         output = []
