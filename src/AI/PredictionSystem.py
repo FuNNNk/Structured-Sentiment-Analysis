@@ -42,7 +42,9 @@ class PredictionSystem(metaclass=Singleton):
         target_positions_list = [sour_tar_positions_list[i] for i in range(len(sour_tar_positions_list)) if i % 2 == 1]
 
         for item in zip(sour_tar, source_positions_list, target_positions_list, polar_expr, polar_expr_positions_list):
-            opinions.append({"Source":  [[item[0][0][8::]] if item[0][0][8::] else [[]], item[1]], "Target": [[item[0][1][8::]], item[2]], "Polar_expression": [[item[3]], item[4]]})
+            opinions.append({"Source": [[item[0][0][8::]] if item[0][0][8::] else [], item[1]],
+                             "Target": [[item[0][1][8::]] if item[0][1][8::] else [], item[2]],
+                             "Polar_expression": [[item[3]] if item[3] else [], item[4]]})
 
         return opinions
 
@@ -52,4 +54,6 @@ class PredictionSystem(metaclass=Singleton):
 
 if __name__ == "__main__":
     predict = PredictionSystem()
-    print(predict.predict_text("Even though the price is decent for Paris , I would not recommend this hotel ."))
+    #print(predict.predict_text("Even though the price is decent for Paris , I would not recommend this hotel ."))
+
+    print(predict.predict_text("It is raining."))
