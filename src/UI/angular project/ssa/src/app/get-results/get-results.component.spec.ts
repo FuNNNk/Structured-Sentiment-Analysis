@@ -22,4 +22,12 @@ describe('GetResultsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should sucessfuly run the function', () => {
+    expect(component.poolingResults).toBeTruthy();
+  });
+
+  it('should sucessfuly run the function', () => {
+    expect(component.parser).toBeTruthy();
+  });
 });
