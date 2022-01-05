@@ -65,9 +65,27 @@ function poolingResults(filename) {
     url: "http://localhost:3000/stats",
     data: {filename: filename},
     success: function(data){
+        // Backup
+        //  const sentimentResults = JSON.stringify(data, null, '\t');
+        // $("#rezultate").text(sentimentResults);
 
-        const sentimentResults = JSON.stringify(data, null, '\t');
-        $("#rezultate").text(sentimentResults);
+        let dd =  data.replace("\n", "").replace("\r", "").replace("\t", "");
+        
+        let dataAsJsonParsed = JSON.parse(dd);
+        console.log(dataAsJsonParsed);
+
+        const list = $("<ul></ul>")
+
+        list.append("<li>" + dataAsJsonParsed.text + "</li>")
+        dataAsJsonParsed.opinions.map((e)=>{
+            Object.keys(e).map((k)=> {
+                //console.log(k, e[k]);
+                list.append("<li>" + k + ":  " +  e[k] + "</li>")
+            })
+        });
+
+        $("#rezultate").append(list)
+
         window.ssa.loader("stop");
         poolingResults(filename);
 
