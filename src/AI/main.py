@@ -4,14 +4,12 @@ import argparse
 import os
 import json
 
-
 """
 Parse input arguments for prediction and type of algorithm
 """
 
 # Create parser
 parser = argparse.ArgumentParser(description="Input arguments parser")
-
 
 parser.add_argument("-train", "--train",
                     action="store_true",
@@ -41,16 +39,16 @@ if not os.path.isfile(file_path):
     sys.exit()
 else:
     if any(options):
-        if options[0] and algorithm[0]:     # Predict with a neural network
+        if options[0] and algorithm[0]:  # Predict with a neural network
             prediction_system = PredictionSystem('NN')
 
             with open(file_path, 'r') as f:
                 text = f.read()
                 prediction = prediction_system.predict_text(text)
                 output = {
-                        "sent_id": file_path,
-                        "text": text,
-                        "opinions": prediction
+                    "sent_id": file_path,
+                    "text": text,
+                    "opinions": prediction
                 }
                 print(prediction)
                 with open(file_path.replace('.txt', '.json'), 'w') as output_file:
@@ -61,8 +59,6 @@ else:
                   "full list of arguments you must have.")
     else:
         print(" ___ ")
-
-
 
 # Example call
 # [python or path/to/python/executable] main.py -nn -predict path/to/plainText_file

@@ -124,19 +124,15 @@ def getAllObjsWithAdjectives(v):
 def source_target_extraction(tokens):
     source_target_list = []
     verbs = [tok for tok in tokens if (tok.pos_ == "VERB" or tok.text in AUX_VERBS) and tok.dep_ != "aux"]
-    # print(f'verbs: {verbs}')
     if len(verbs) == 0:
         nouns = [tok for tok in tokens if tok.pos_ == "NOUN" and tok.dep_ != "aux"]
-        # print(f'nouns: {nouns}')
         for i in range(len(nouns)):
             adjectives = [tok for tok in list(nouns[i].lefts) if tok.pos_ == "ADJ"]
             if len(adjectives) == 0:
                 adjectives = [tok for tok in list(nouns[i].rights) if tok.pos_ == "ADJ"]
             if len(adjectives) == 0:
                 adjectives = [tok for tok in tokens if tok.pos_ == "ADJ"]
-            # print(f"adjectives: {adjectives}")
             conjs = [tok for tok in list(nouns[i].rights) if tok.pos_ == "CCONJ"]
-            # print(f"conjs: {conjs}")
             compound = " ".join(str(tok) for tok in generate_sub_compound(nouns[i]))
             if adjectives and not conjs:
                 count = 0
@@ -161,9 +157,7 @@ def source_target_extraction(tokens):
                 compound = " ".join(str(tok) for tok in generate_sub_compound(objects[i]))
                 if len(compound) > len(objects[i]):
                     objects[i] = compound
-            # print(f'objects: {objects}')
             adjectives = [tok for tok in list(v.rights) if tok.pos_ == "ADJ"]
-            # print(f'adjectives: {adjectives}')
             if len(objects) != 0:
                 if len(adjectives) != 0:
                     source_target_list.append(("Source: ",
@@ -184,11 +178,8 @@ def source_target_extraction(tokens):
                                                            f"Target: {objects[0]}"))
                                 flag = True
             subs, verbNegated = getAllSubs(v)
-            # print(f'FLAG: {flag}')
-            # print(f'subs: {subs}')
             if len(subs) > 0 and flag is False:
                 v, objs = getAllObjsWithAdjectives(v)
-                # print(f'objs: {objs}')
                 for sub in subs:
                     if len(objs) != 0:
                         for obj in objs:
@@ -267,20 +258,6 @@ def get_test_sentences(file):
     return sent_array
 
 
-# sentences = get_test_sentences('sentences.txt')
-# counter = 0
-# parsed_sentences = []
-
-
-def json_file_parser(file):
-    with open(file) as f:
-        load_file = json.load(f)
-    texts_from_file = []
-    for dic in load_file:
-        texts_from_file.append(dic["text"])
-    return texts_from_file
-
-
 def write_list_into_file(list_of_sentences):
     textfile = open("sentences2.txt", "ab")
     for element in list_of_sentences:
@@ -288,13 +265,8 @@ def write_list_into_file(list_of_sentences):
     textfile.close()
 
 
-# sentence_list = json_file_parser('./Training data/train1.json')
-# write_list_into_file(sentence_list)
-
-
 def return_output(sentence):
     p_sentence = nlp(sentence)
-    # parsed_sentences.append(p_sentence)
     source_target = source_target_extraction(p_sentence)
     positions_list = []
     for item in source_target:
@@ -315,4 +287,4 @@ def print_all_sentences(sentences_list):
 
 
 # print(print_all_sentences(sentences))
-# print(return_output("Donald Trump is the worst president of USA, but Hillary is better than him."))
+# print(return_output("My dog ate my biscuit."))

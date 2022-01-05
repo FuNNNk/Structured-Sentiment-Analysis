@@ -27,7 +27,7 @@ class NeuralNetworksAlg(Algorithm):
 
         for item in itertools.product(self.sentiment, self.intensity):
             self.combinations.append(item[0] + '_' + item[1])
-        print(self.combinations)
+        # print(self.combinations)
         self.model = None
         self.initialise_model()
         if 'weights_file_path' in kwargs:

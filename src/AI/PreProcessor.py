@@ -73,10 +73,3 @@ def json_file_parser(file_name):
     for dic in load_file:
         texts_from_file.append(dic["text"])
     return texts_from_file
-
-
-def write_list_into_file(list_of_sentences):
-    textfile = open("Training data/corpus2.txt", "ab")
-    for sentence in list_of_sentences:
-        textfile.write(sentence.encode("UTF-8") + " ".encode("UTF-8"))
-    textfile.close()

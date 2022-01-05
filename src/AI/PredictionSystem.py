@@ -11,12 +11,10 @@ class PredictionSystem(metaclass=Singleton):
     algorithm = None
 
     def __init__(self, alg_type='NN'):
-
         # STRATEGY
 
         if alg_type == 'NN':
             self.algorithm = NeuralNetworksAlg(weights_file_path='./models/best_model.hdf5')
-        # else ...
 
     def train_model(self, data):
         preprocessed_data = self.preprocessor.pre_process_input(data)
@@ -28,7 +26,7 @@ class PredictionSystem(metaclass=Singleton):
 
     def predict_text(self, text):
         """
-        Extract source, target, polar expression and predict the sentiment
+        Extracting the source, target, polar expression and predicting the polarity, intensity.
         """
         opinions = []
 
@@ -41,20 +39,48 @@ class PredictionSystem(metaclass=Singleton):
         source_positions_list = [sour_tar_positions_list[i] for i in range(len(sour_tar_positions_list)) if i % 2 == 0]
         target_positions_list = [sour_tar_positions_list[i] for i in range(len(sour_tar_positions_list)) if i % 2 == 1]
 
-        for item in zip(sour_tar, source_positions_list, target_positions_list, polar_expr, polar_expr_positions_list):
-            prediction = self.algorithm.predict_single_input(item[3])
-            polarity, intensity = prediction.split('_')
-            opinions.append({"Source": [[item[0][0][8::]] if item[0][0][8::] else [], item[1]],
-                             "Target": [[item[0][1][8::]] if item[0][1][8::] else [], item[2]],
-                             "Polar_expression": [[item[3]] if item[3] else [], item[4]],
-                             "Polarity": polarity,
-                             "Intensity": intensity
+        if sour_tar and polar_expr:
+            for item in zip(sour_tar, source_positions_list, target_positions_list, polar_expr, polar_expr_positions_list):
+                prediction = self.algorithm.predict_single_input(item[3])
+                polarity, intensity = prediction.split('_')
+                opinions.append({"Source": [[item[0][0][8::]] if item[0][0][8::] else [], item[1]],
+                                 "Target": [[item[0][1][8::]] if item[0][1][8::] else [], item[2]],
+                                 "Polar_expression": [[item[3]] if item[3] else [], item[4]],
+                                 "Polarity": polarity,
+                                 "Intensity": intensity
+                                 }
+                                )
+        elif sour_tar:
+            for item in zip(sour_tar, source_positions_list, target_positions_list):
+                prediction = self.algorithm.predict_single_input("")
+                polarity, intensity = prediction.split('_')
+                opinions.append({"Source": [[item[0][0][8::]] if item[0][0][8::] else [], item[1]],
+                                 "Target": [[item[0][1][8::]] if item[0][1][8::] else [], item[2]],
+                                 "Polar_expression": [[], []],
+                                 "Polarity": polarity,
+                                 "Intensity": intensity
+                                 }
+                                )
+        elif polar_expr:
+            for item in zip(polar_expr, polar_expr_positions_list):
+                prediction = self.algorithm.predict_single_input(item[0])
+                polarity, intensity = prediction.split('_')
+                opinions.append({"Source": [[], []],
+                                 "Target": [[], []],
+                                 "Polar_expression": [[item[0]] if item[0] else [], item[1]],
+                                 "Polarity": polarity,
+                                 "Intensity": intensity
+                                 }
+                                )
+        else:
+            opinions.append({"Source": [[], []],
+                             "Target": [[], []],
+                             "Polar_expression": [[], []],
+                             "Polarity": "",
+                             "Intensity": ""
                              }
-            )
-
+                            )
         return opinions
 
     def save_model(self, file_path):
         self.algorithm.save_model(file_path)
-
-
