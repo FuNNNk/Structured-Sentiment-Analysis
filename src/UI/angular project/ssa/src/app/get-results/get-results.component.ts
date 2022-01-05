@@ -12,4 +12,6 @@ export class GetResultsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  
+
 }
