@@ -96,8 +96,10 @@ class ServerManager{
         });
         
         setInterval( function () {
-            const stats = resultsReaderFn();
-           longpoll.publish("/stats", stats);
+            if (resultsReaderFn){
+                const stats = resultsReaderFn();
+                longpoll.publish("/stats", stats);
+            }
         }, 17000);
 
 
