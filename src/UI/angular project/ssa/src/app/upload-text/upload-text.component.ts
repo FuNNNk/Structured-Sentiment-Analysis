@@ -15,4 +15,6 @@ export class UploadTextComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  text=''
+
 }

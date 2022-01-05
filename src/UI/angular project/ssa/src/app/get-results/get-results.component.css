@@ -1,0 +1,17 @@
+
+.arie-rezultate {
+    height: 700px;
+    width: 80%;
+    margin: auto;
+    margin-top: 51px;
+} 
+
+.arie-rezultate pre {
+    height: 100%;
+    border: 1px solid #ccc;
+}
+.upload-component{
+    height: 100%;
+    display: grid; 
+    grid-template-rows: 40% 60%
+}

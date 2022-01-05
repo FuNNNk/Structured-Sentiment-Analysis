@@ -13,15 +13,21 @@
             </div>
             <div class="dropdown">
                 <select name="formats" id="formats">
-                    <option value="JPG">.jpg</option>
-                    <option value="PNG">.png</option>
+                    <option value="TXT">.txt</option>
+                    <!-- <option value="PNG">.png</option>
                     <option value="PDF">.pdf</option>
-                    <option value="DOC">.doc</option>
+                    <option value="DOC">.doc</option> -->
                 </select>
             </div>
         </div>
+        <input type="file"accept=".txt" class="file-input" (change)="onFileSelected($event)"
+         #fileUpload>
         <div class="browse-btn">
-            <button>Browse</button>
+            <button (click)="fileUpload.click()">Browse</button>
+            <button [disabled]="!fileName" (click)="sendFile()">Upload</button>
         </div>
+        <p class="file-name">{{fileName||"No file uploaded yet."}}</p>
+        
+
     </div>
 </div>

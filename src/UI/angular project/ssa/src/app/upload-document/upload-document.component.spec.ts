@@ -22,4 +22,16 @@ describe('UploadDocumentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // it('should return true on file selected', () => {
+  //   expect(component.onFileSelected).toBeTruthy();
+  // });
+
+  // it('should return true on file sent', () => {
+  //   expect(component.sendFile).toBeTruthy();
+  // });
+
+
 });
+
+
