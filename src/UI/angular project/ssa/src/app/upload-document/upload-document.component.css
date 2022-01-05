@@ -62,12 +62,25 @@ select:active{
 }
 button{
     background-color: #85A49E;
-    width: 5em;
+    width: 60%;
+    height: 150%;
     border: none;
     color: white;
     font-size: 2em;
     border-radius: 0.5em;
+    margin-left: 5%;
+    /* border-top: 5%; */
 }
 button:hover{
     background-color: #576D69;
+}
+
+
+.file-input {
+    display: none;
+  }
+
+.file-name {
+    font-size:1.5rem;
+    margin-left: 25%;
 }
