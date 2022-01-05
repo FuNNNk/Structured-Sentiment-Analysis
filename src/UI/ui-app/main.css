@@ -219,6 +219,11 @@ textarea{
     font-size: 1.7rem;
   }
 
+  .eroare {
+      color: red!important;
+      border-bottom: 1px solid salmon;
+  }
+
 
 .loader,
 .loader:after {

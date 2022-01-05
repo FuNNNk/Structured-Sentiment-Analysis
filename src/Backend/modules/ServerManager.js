@@ -96,8 +96,13 @@ class ServerManager{
         });
         
         setInterval( function () {
-            const stats = resultsReaderFn();
-           longpoll.publish("/stats", stats);
+            if (resultsReaderFn){
+                const stats = resultsReaderFn();
+                longpoll.publish("/stats", stats);
+            } else {
+                longpoll.publish("/stats", {"mesage": "Fisierul incarat se prelucreaza."});
+                console.log("Fisierul incarat nu a fost detectat.")
+            }
         }, 17000);
 
 
