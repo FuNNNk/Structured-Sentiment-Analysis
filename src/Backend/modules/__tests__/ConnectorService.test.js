@@ -1,5 +1,6 @@
 const fs = require('fs');
 
+
 const ConnectorService = require("../ConnectorService");
 
 jest.mock('fs', () => {
@@ -52,5 +53,16 @@ describe('Teste ConnectorService reader', () => {
         expect(fs.readFile).toBeCalled();
         expect(fs.readFile).toBeCalledWith(expect.stringContaining("mocked/path"), expect.stringContaining("utf8"), expect.any(Function) );
       });
+
+      describe('ConnectorService.loggingAspect:', () => {
+
+        test('Test aspect logging', () => {
+           ConnectorService.loggingAspect('test aspects logging');
+           const logSpy = jest.spyOn(console, "log");
+
+           expect(logSpy).toHaveBeenLastCalledWith(expect.stringContaining('test aspects logging'));
+         });
     });
+  });
+
 });
