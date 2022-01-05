@@ -33,4 +33,8 @@ describe('UploadTextComponent', () => {
     })
     
   })
+
+  it('should upload text', () => {
+    expect(component.uploadText).toBeTruthy();
+  });
 });

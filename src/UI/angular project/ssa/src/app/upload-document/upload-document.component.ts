@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-upload-document',
@@ -7,13 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadDocumentComponent implements OnInit {
 
-  constructor() { }
+  constructor(public http:HttpClient ) { }
+
+
 
   ngOnInit(): void {
   }
 
   fileName= ''
   file:File
+  // http:HttpClient
 
   onFileSelected(event) {
 
@@ -31,16 +36,20 @@ export class UploadDocumentComponent implements OnInit {
 sendFile() {
   console.log(this.file)
 
-  // const formData = new FormData();
+  const formData = new FormData();
 
-  //   formData.append("file", this.file);
-  //   console.log(this.file)
+    formData.append("file", this.file);
+    console.log(this.file)
 
-  //   const upload$ = this.http.post("http://localhost:3000/uiconnector", formData);
+    // const upload$ = this.http.post("http://localhost:3000/uiconnector", formData);
 
-  //   upload$.subscribe();
 
-  //   return true
+    // upload$.subscribe();
+    this.http.post('http://localhost:3000/uiconnector', formData).subscribe((res)=>{
+            console.log(res);
+        });
+
+    return true
 }
 
 
