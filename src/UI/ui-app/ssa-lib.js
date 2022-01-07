@@ -68,7 +68,11 @@ function poolingResults(filename) {
         // Backup
         //  const sentimentResults = JSON.stringify(data, null, '\t');
         // $("#rezultate").text(sentimentResults);
-
+        $("#rezultate").text("Zona de afisare rezultate")
+        if(data == "no data")
+        {
+            return;
+        }
         let dd =  data.replace("\n", "").replace("\r", "").replace("\t", "");
         
         let dataAsJsonParsed = JSON.parse(dd);
