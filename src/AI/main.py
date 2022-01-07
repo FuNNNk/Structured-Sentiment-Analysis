@@ -46,9 +46,9 @@ else:
                 text = f.read()
                 prediction = prediction_system.predict_text(text)
                 output = {
-                    "sent_id": file_path,
-                    "text": text,
-                    "opinions": prediction
+                        # "sent_id": file_path,
+                        "text": text,
+                        "opinions": prediction
                 }
                 print(prediction)
                 with open(file_path.replace('.txt', '.json'), 'w') as output_file:
