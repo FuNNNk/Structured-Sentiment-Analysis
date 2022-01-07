@@ -1,0 +1,220 @@
+[
+    {
+        "sent_id": "..\\data-upload-storage\\sentences.txt",
+        "text": "I really liked the hotel.",
+        "opinions": [
+            {
+                "Source": [
+                    [
+                        "I"
+                    ],
+                    [
+                        "0:1"
+                    ]
+                ],
+                "Target": [
+                    [
+                        "the hotel"
+                    ],
+                    [
+                        "15:24"
+                    ]
+                ],
+                "Polar_expression": [
+                    [
+                        "really liked"
+                    ],
+                    [
+                        "2:14"
+                    ]
+                ],
+                "Polarity": "Negative",
+                "Intensity": "Standard"
+            }
+        ]
+    },
+    {
+        "sent_id": "..\\data-upload-storage\\sentences.txt",
+        "text": "My dog ate my biscuit.",
+        "opinions": [
+            {
+                "Source": [
+                    [
+                        "My dog"
+                    ],
+                    [
+                        "0:6"
+                    ]
+                ],
+                "Target": [
+                    [
+                        "my biscuit"
+                    ],
+                    [
+                        "11:21"
+                    ]
+                ],
+                "Polar_expression": [
+                    [],
+                    []
+                ],
+                "Polarity": "Negative",
+                "Intensity": "Standard"
+            }
+        ]
+    },
+    {
+        "sent_id": "..\\data-upload-storage\\sentences.txt",
+        "text": "The playground was ruined by the children.",
+        "opinions": [
+            {
+                "Source": [
+                    [
+                        "the children"
+                    ],
+                    [
+                        "29:41"
+                    ]
+                ],
+                "Target": [
+                    [
+                        "The playground"
+                    ],
+                    [
+                        "0:14"
+                    ]
+                ],
+                "Polar_expression": [
+                    [
+                        "was ruined"
+                    ],
+                    [
+                        "15:25"
+                    ]
+                ],
+                "Polarity": "Negative",
+                "Intensity": "Standard"
+            }
+        ]
+    },
+    {
+        "sent_id": "..\\data-upload-storage\\sentences.txt",
+        "text": "Obama was the first black president.",
+        "opinions": [
+            {
+                "Source": [
+                    [
+                        "Obama"
+                    ],
+                    [
+                        "0:5"
+                    ]
+                ],
+                "Target": [
+                    [
+                        "the first black president"
+                    ],
+                    [
+                        "10:35"
+                    ]
+                ],
+                "Polar_expression": [
+                    [
+                        "black"
+                    ],
+                    [
+                        "20:25"
+                    ]
+                ],
+                "Polarity": "Negative",
+                "Intensity": "Standard"
+            }
+        ]
+    },
+    {
+        "sent_id": "..\\data-upload-storage\\sentences.txt",
+        "text": "It is raining.",
+        "opinions": [
+            {
+                "Source": [
+                    [
+                        "It"
+                    ],
+                    [
+                        "0:2"
+                    ]
+                ],
+                "Target": [
+                    [],
+                    []
+                ],
+                "Polar_expression": [
+                    [
+                        "is raining"
+                    ],
+                    [
+                        "3:13"
+                    ]
+                ],
+                "Polarity": "Negative",
+                "Intensity": "Standard"
+            }
+        ]
+    },
+    {
+        "sent_id": "..\\data-upload-storage\\sentences.txt",
+        "text": "An avalanche broke down the mountain.",
+        "opinions": [
+            {
+                "Source": [
+                    [
+                        "An avalanche"
+                    ],
+                    [
+                        "0:12"
+                    ]
+                ],
+                "Target": [
+                    [
+                        "the mountain"
+                    ],
+                    [
+                        "24:36"
+                    ]
+                ],
+                "Polar_expression": [
+                    [],
+                    []
+                ],
+                "Polarity": "Negative",
+                "Intensity": "Standard"
+            }
+        ]
+    },
+    {
+        "sent_id": "..\\data-upload-storage\\sentences.txt",
+        "text": "The children sang all night",
+        "opinions": [
+            {
+                "Source": [
+                    [
+                        "The children"
+                    ],
+                    [
+                        "0:12"
+                    ]
+                ],
+                "Target": [
+                    [],
+                    []
+                ],
+                "Polar_expression": [
+                    [],
+                    []
+                ],
+                "Polarity": "Negative",
+                "Intensity": "Standard"
+            }
+        ]
+    }
+]

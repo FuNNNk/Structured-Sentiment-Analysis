@@ -284,7 +284,3 @@ def print_all_sentences(sentences_list):
         print(return_output(sent))
         print('\n')
         count += 1
-
-
-# print(print_all_sentences(sentences))
-# print(return_output("My dog ate my biscuit."))

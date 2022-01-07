@@ -147,15 +147,3 @@ def polar_expression_extraction(text):
         else:
             i += 1
     return polar_expressions
-
-
-def get_test_sentences(file):
-    sent_array = []
-    sentences_file = open(file, 'r')
-    lines = sentences_file.readlines()
-    for line in lines:
-        sent_array.append(line[:-1])
-    return sent_array
-
-
-# print(polar_expression_extraction("Donald Trump is the worst president of USA, but Hillary is better than him."))

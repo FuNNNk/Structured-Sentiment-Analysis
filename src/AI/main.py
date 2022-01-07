@@ -1,4 +1,5 @@
 from PredictionSystem import PredictionSystem
+import source_target
 import sys
 import argparse
 import os
@@ -42,17 +43,19 @@ else:
         if options[0] and algorithm[0]:  # Predict with a neural network
             prediction_system = PredictionSystem('NN')
 
-            with open(file_path, 'r') as f:
-                text = f.read()
-                prediction = prediction_system.predict_text(text)
+            list_of_sentences = source_target.get_test_sentences(file_path)
+            list_of_outputs = []
+            for sentence in list_of_sentences:
+                prediction = prediction_system.predict_text(sentence)
                 output = {
-                        # "sent_id": file_path,
-                        "text": text,
+                        "sent_id": file_path,
+                        "text": sentence,
                         "opinions": prediction
                 }
-                print(prediction)
-                with open(file_path.replace('.txt', '.json'), 'w') as output_file:
-                    json.dump(output, output_file)
+                list_of_outputs.append(output)
+
+            with open(file_path.replace('.txt', '.json'), 'w') as output_file:
+                json.dump(list_of_outputs, output_file)
 
         else:
             print("\n Some arguments are missing! Check out and run again... \n ...or enter 'main.py -h' to see the "
