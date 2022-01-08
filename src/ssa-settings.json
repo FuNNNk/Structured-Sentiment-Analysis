@@ -1,0 +1,3 @@
+{
+    "ai-exec": "python main.py -nn -predict"
+}

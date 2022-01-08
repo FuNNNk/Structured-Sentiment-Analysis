@@ -4,11 +4,20 @@ const WordnetUtils = require("./utils");
 const opinionAdj = ['properly', 'not'];
 const opinionVerb = ['recommend'];
 const { exec } = require("child_process");
+const settings = require("../../ssa-settings.json");
 
+
+function getAIExec(){
+    return settings['ai-exec'];
+}
 
 async function buildSentimentTrainingDataStructure(filename) {
-  
-  exec("(cd ..\\AI\\ && python main.py -nn -predict ..\\data-upload-storage\\" + filename + " )", (error, stdout, stderr) => {
+    const aiCmd = getAIExec();
+    const dataStorageLocation = "..\\data-upload-storage\\" + filename;
+    const aiModuleLocation = "..\\AI\\";
+    const execCmd = `${aiCmd} ${dataStorageLocation}`
+
+  exec(`(cd ${aiModuleLocation} && ${execCmd} )`, (error, stdout, stderr) => {
       if (error) {
           console.log(`error: ${error.message}`);
           return;
@@ -19,12 +28,6 @@ async function buildSentimentTrainingDataStructure(filename) {
       }
       console.log(`stdout: ${stdout}`);
   });
-    // fs.writeFile('./ssa-training.json', JSON.stringify(rezData), function (err) {
-    //     if (err) return console.log(err);
-    //     console.log('salvare date > ssa-training.txt');
-    //   });
-
-    // return rezData;
 }
 
 const Opinion = {
