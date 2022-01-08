@@ -1,10 +1,7 @@
 const aop = require('../aop')
 const fs = require('fs');
 const path = require('path');
-const AiSentimentConnector = require("./AISentimentConnector")
 var idr = require('./InputDataReceiver')
-var ods = require('./OutputDataSender')
-var idp = require('./InputDataProcessing')
 
 function UIConnector (text) {
     let inputDataReceiver = new idr.InputDataReceiver(text);
@@ -17,11 +14,6 @@ function UIConnector (text) {
             var data = inputDataReceiver.getJsonFile();
         else
             var data = inputDataReceiver.getTextFile();
-}
-
-function setAIConnector (text) {
-    let outputDataSender = new ods.OutputDataSender(text);
-    outputDataSender.sendText();
 }
 
 function getAIConnectorStats (file) {
@@ -51,7 +43,6 @@ function printTypeOfData(data){
 
 module.exports = {
     UIConnector,
-    setAIConnector,
     getAIConnectorStats,
     loggingAspect,
     printTypeOfData
