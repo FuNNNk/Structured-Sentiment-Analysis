@@ -18,6 +18,18 @@ $(document).ready(function(){
        
     });
 
+    $("#ssa-text-upload-btn").click((e)=>{
+        const fileid = (""+Math.random(10)).split(".")[1]
+        let ssatext = $("#ssatext").val();
+         window.ssa.loader("start");
+         if (!ssatext) {
+             $("#ssa-input-label").addClass("eroare")
+         }
+
+         window.ssa.uploadText(ssatext, fileid);
+        
+     });
+
     $("#ssa-file-upload").change((e)=>{
         var fileName = e.target.files[0].name;
         $("#file-name").removeClass("eroare")

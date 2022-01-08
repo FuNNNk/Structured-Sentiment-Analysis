@@ -1,8 +1,6 @@
 const fs = require('fs');
 const WordnetUtils = require("./utils");
 
-const opinionAdj = ['properly', 'not'];
-const opinionVerb = ['recommend'];
 const { exec } = require("child_process");
 const settings = require("../../ssa-settings.json");
 

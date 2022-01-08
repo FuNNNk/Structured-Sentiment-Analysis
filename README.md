@@ -21,3 +21,18 @@ Team coordinator: Trandabat Diana
 [State-of-the-art](https://docs.google.com/document/d/1pc6v_ZByhtzvtFANLknnSOkIbzNAgMqH7ZdvuvMxwQA/edit?usp=sharing)
 
 [Trello](https://trello.com/b/aIm9POpX/structured-sentiment-analysis)
+
+
+
+**Setup and run**
+
+```cd ./src/Backend```
+
+```
+npm setup
+npm start
+```
+
+**Dev mode**
+
+`npm start:dev`

@@ -1,7 +1,8 @@
 const aop = require('../aop')
 const fs = require('fs');
 const path = require('path');
-var idr = require('./InputDataReceiver')
+var idr = require('./InputDataReceiver');
+const { FILE } = require('dns');
 
 function UIConnector (text) {
     let inputDataReceiver = new idr.InputDataReceiver(text);
@@ -28,6 +29,17 @@ function getAIConnectorStats (file) {
     }
 };
 
+function writeSsaInputRaw(ssaText, fileid) {
+    console.log('\x1b[32m%s\x1b[0m','wrinting file with id: ' + fileid );
+    const filePath = path.resolve(__dirname, '../../data-upload-storage/' +  fileid + ".txt");
+    fs.writeFile(filePath, ssaText, function (err) {
+        if (err) return console.log(err);
+
+        console.log('\x1b[32m%s\x1b[0m','succes saved to disk fileid: ' + fileid );
+        aop.monitorFileWrite(fileid);
+        });
+}
+
 
 function loggingAspect(text){
     console.log("== Calling the logger function ==");
@@ -45,5 +57,6 @@ module.exports = {
     UIConnector,
     getAIConnectorStats,
     loggingAspect,
-    printTypeOfData
+    printTypeOfData,
+    writeSsaInputRaw
 }

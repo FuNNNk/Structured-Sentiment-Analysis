@@ -42,15 +42,19 @@ module.exports = {
 
     monitorHeaders(headers){
         if (config.securityMiddleware) {
-            console.log("Middleware headers log: \n", JSON.stringify(headers),"\n");
+            console.log('\x1b[36m%s\x1b[0m', "Middleware headers log: \n");
+            Object.keys(headers).forEach(key=>{
+                console.log('\x1b[36m%s\x1b[0m', key + "  " + headers[key]);
+            });
+            
         } 
     },
 
     monitorOrigin(req){
         if (config.originMiddleware) {
-            console.log("Middleware path log: ", JSON.stringify(req.originalUrl));
-            console.log("url: ", req.url);
-            console.log("method: ", req.method,"\n");
+            console.log('\x1b[35m%s\x1b[0m', "Middleware path log: "+ JSON.stringify(req.originalUrl));
+            console.log('\x1b[35m%s\x1b[0m',"url: " + req.url);
+            console.log('\x1b[35m%s\x1b[0m',"method: " + req.method);
         }
     },
 
@@ -59,14 +63,22 @@ module.exports = {
             console.log("AI Connection:", JSON.stringify(data));
         }
     },
+   
 
     monitorFileUpload(file){
-        if (config.trainingDataUpload) {
-            console.log("Middleware data-upload log:");
-            console.log("file name: ", file.name);
-            console.log("file size: ", file.size);
-            console.log("file md5: ", file.md5);
-            console.log("file mimetype: ", file.mimetype,"\n");
+        if (config.securityMiddleware) {
+            console.log('\x1b[32m%s\x1b[0m','\n\tSentiment Analysis raw text was saved to disk for AI module.\n');
+
+            console.log('\x1b[37m%s\x1b[0m', "file name: " + file.name);
+            console.log('\x1b[37m%s\x1b[0m', "file size: " + file.size);
+            console.log('\x1b[37m%s\x1b[0m', "file md5: "+ file.md5);
+            console.log('\x1b[37m%s\x1b[0m', "file mimetype: "+ file.mimetype,"\n");
+        } 
+    },
+
+    monitorFileWrite(file){
+        if (config.securityMiddleware) {
+            console.log('\x1b[32m%s\x1b[0m','\n\tSentiment Analysis raw text was saved to disk in file ' + file+'.\n');
         } 
     },
     

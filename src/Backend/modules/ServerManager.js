@@ -5,6 +5,8 @@ const path = require('path');
 const fileUpload = require('express-fileupload');
 const aop = require('../aop')
 const cors = require('cors')
+const uuid = require('uuid')
+const bodyParser = require("body-parser");;
 
 var expressPooling = require("express-longpoll")
 
@@ -30,7 +32,7 @@ class ServerManager{
 
         var app = express();
         app.use(cors())
-
+        app.use(bodyParser.json());
         app.use(fileUpload());
 
          /** POST */
@@ -53,18 +55,24 @@ class ServerManager{
                     throw new Error("eroare la incarcarea fisierului.")
                   }
                 });
-                // @TODO move code in ConnectorService
-                // ConnectorService.setAIConnector();
+
                 res.send('File uploaded!');
             }
         ));
 
-        /** GET */
-        app.get('/uiconnector', middleware(
+        /** post */
+        app.post('/uiconnector/raw', middleware(
             function (req, res) {
-                // @TODO read from ConnectorService
-                // ConnectorService.getAIConnectorData(); // read the AI output from localdb
-                res.send('Test:  read the AI output from localdb');
+                if (!req.body.ssatext || Object.keys(req.body.ssatext).length === 0) {
+                    return res.status(400).send('Input can\'t be empty.');
+                }
+
+                if (!req.body.fileid || Object.keys(req.body.fileid).length === 0) {
+                    return res.status(400).send('fileid can\'t be empty.');
+                }
+
+                ConnectorService.writeSsaInputRaw(req.body.ssatext, req.body.fileid);
+                res.send('processing');
             }
         ));
 

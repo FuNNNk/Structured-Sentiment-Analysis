@@ -23,6 +23,31 @@ window.ssa.uploadFile = function (file, filename) {
 };
 
 
+window.ssa.uploadText = function (ssatext, filename) {
+
+    let fd = new FormData();
+    fd.append('ssatext', ssatext);
+    fd.append('fileid', filename);
+
+    $.ajax({
+        url: "http://localhost:3000/uiconnector/raw",
+        method: 'post',
+        data: fd,
+        processData: false,
+        contentType: false,
+        success: function(data){
+            console.log("uploaded", data);
+            window.ssa.analise(filename);
+            poolingResults(filename);
+        },
+        error: function(e) {
+           console.log("error: ", e)
+        },
+    });
+};
+
+
+
 window.ssa.analise = function (filename) {
 
     $.ajax({

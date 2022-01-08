@@ -1,13 +1,4 @@
-from PredictionSystem import PredictionSystem
-import source_target
-import sys
-import argparse
-import os
-import json
 
-"""
-Parse input arguments for prediction and type of algorithm
-"""
 
 # Create parser
 parser = argparse.ArgumentParser(description="Input arguments parser")
