@@ -1,0 +1,5 @@
+Doing multiple client side requests, the application does not work with it and there are no results appearing on the screen. Even when the python code is wrong,
+the application is still going through the request.
+
+
+By the security test, you can go into each file into the Backend folder
