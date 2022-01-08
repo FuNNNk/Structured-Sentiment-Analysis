@@ -20,11 +20,13 @@ Team coordinator: Trandabat Diana
 
 [State-of-the-art](https://docs.google.com/document/d/1pc6v_ZByhtzvtFANLknnSOkIbzNAgMqH7ZdvuvMxwQA/edit?usp=sharing)
 
+[Technical Report](https://docs.google.com/document/d/1kGXclNkQQLm21smsRVgv_puYh5IGk9XO6R9JSDxGzho/edit#heading=h.xee4atiuphoi)
+
 [Trello](https://trello.com/b/aIm9POpX/structured-sentiment-analysis)
 
 
 
-#**Setup and run**
+**Setup and run**
 
 ```cd ./src/Backend```
 
