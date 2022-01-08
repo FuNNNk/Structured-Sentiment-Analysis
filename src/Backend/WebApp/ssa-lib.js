@@ -28,7 +28,8 @@ window.ssa.uploadText = function (ssatext, filename) {
     let fd = new FormData();
     fd.append('ssatext', ssatext);
     fd.append('fileid', filename);
-
+    console.log('ssatext',ssatext)
+    console.log('fileid',filename)
     $.ajax({
         url: "http://localhost:3000/uiconnector/raw",
         method: 'post',
@@ -37,8 +38,8 @@ window.ssa.uploadText = function (ssatext, filename) {
         contentType: false,
         success: function(data){
             console.log("uploaded", data);
-            window.ssa.analise(filename);
-            poolingResults(filename);
+            window.ssa.analise(filename + '.txt');
+            poolingResults(filename + '.txt');
         },
         error: function(e) {
            console.log("error: ", e)
@@ -82,6 +83,7 @@ window.ssa.loader = function (state) {
 };
 
 function poolingResults(filename) {
+    console.log('poolingResults',filename)
     const tm = setTimeout(()=>{
         window.ssa.loader("start");
     }, 5000);
@@ -96,6 +98,7 @@ function poolingResults(filename) {
         $("#rezultate").text("Results will be placed here")
         if(data == "no data")
         {
+            poolingResults(filename);
             return;
         }
         let dd =  data.replace("\n", "").replace("\r", "").replace("\t", "");

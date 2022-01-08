@@ -71,7 +71,7 @@ class ServerManager{
                     return res.status(400).send('fileid can\'t be empty.');
                 }
 
-                ConnectorService.writeSsaInputRaw(req.body.ssatext, req.body.fileid);
+                ConnectorService.writeSsaInputRaw(req.body.ssatext + ' ', req.body.fileid);
                 res.send('processing');
             }
         ));
@@ -79,7 +79,7 @@ class ServerManager{
 
         app.get('/parser', middleware(
             function (req, res) {
-                console.log(req.query.filename)
+                console.log('\x1b[32m%s\x1b[0m','calling ai parser for fileid: ' + req.query.filename);
                 const rez = OpinionModule.buildSentimentTrainingDataStructure(req.query.filename);
                 res.send("Datele au fost salvate > ssa-training.txt");
             }
@@ -98,6 +98,7 @@ class ServerManager{
             if ( ServerManager.store.file != req.query.filename) {
                 resultsReaderFn = ConnectorService.getAIConnectorStats(req.query.filename);
             }
+            console.log('\x1b[32m%s\x1b[0m','STATS: setting store file: ' + req.query.filename);
 
             ServerManager.store.file = req.query.filename;
             next();
@@ -105,7 +106,9 @@ class ServerManager{
         
         setInterval( function () {
             if (resultsReaderFn){
+                console.log('\x1b[32m%s\x1b[0m','STATS: reading ssa results:');
                 const stats = resultsReaderFn();
+                console.log(stats)
                 longpoll.publish("/stats", stats);
             } else {
                 longpoll.publish("/stats", {"mesage": "Fisierul incarat se prelucreaza."});

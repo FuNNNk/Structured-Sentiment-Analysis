@@ -29,10 +29,10 @@ Team coordinator: Trandabat Diana
 ```cd ./src/Backend```
 
 ```
-npm setup
-npm start
+npm run setup
+npm run start
 ```
 
 **Dev mode**
 
-`npm start:dev`
+`npm run npstart:dev`

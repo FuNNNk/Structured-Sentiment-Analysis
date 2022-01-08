@@ -18,12 +18,16 @@ function UIConnector (text) {
 }
 
 function getAIConnectorStats (file) {
+    console.log('\x1b[36m%s\x1b[0m', "Connector service: get AI connector stats");
     let filename = file;
     let data = "no data"
     return () => {
         const filePath = path.resolve(__dirname, '../../data-upload-storage/' + filename.split('.')[0]+'.json')
+        console.log('\x1b[36m%s\x1b[0m', filename);
         fs.readFile(filePath, 'utf8', function(err, d){
             data = d;
+            console.log('\x1b[36m%s\x1b[0m', 'Connector service: success reading');
+
         });
         return data;
     }
