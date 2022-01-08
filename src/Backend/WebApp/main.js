@@ -11,7 +11,7 @@ $(document).ready(function(){
         if (fisierBlob){
             window.ssa.uploadFile(file, fisierBlob.name);
         } else {
-            $("#file-name").text("Eroare: Selecteaza un fisier");
+            $("#file-name").text("Error: Select a file");
             $("#file-name").addClass("eroare")
             window.ssa.uploadFile(file, null);
         }
@@ -21,7 +21,7 @@ $(document).ready(function(){
     $("#ssa-file-upload").change((e)=>{
         var fileName = e.target.files[0].name;
         $("#file-name").removeClass("eroare")
-        $("#file-name").text("Fisier selectat: " + fileName);
+        $("#file-name").text("Selected file: " + fileName);
     });
 
 

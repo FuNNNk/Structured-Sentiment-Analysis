@@ -194,7 +194,7 @@ textarea{
 }
 
 #ssa-file-upload::before {
-    content: 'Cauta un fisier';
+    content: 'Search for a file';
     display: inline-block;
     padding: 18px 40px;
     outline: none;

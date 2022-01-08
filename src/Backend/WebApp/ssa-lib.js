@@ -68,7 +68,7 @@ function poolingResults(filename) {
         // Backup
         //  const sentimentResults = JSON.stringify(data, null, '\t');
         // $("#rezultate").text(sentimentResults);
-        $("#rezultate").text("Zona de afisare rezultate")
+        $("#rezultate").text("Results will be placed here")
         if(data == "no data")
         {
             return;
