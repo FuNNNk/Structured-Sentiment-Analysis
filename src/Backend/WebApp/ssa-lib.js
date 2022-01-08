@@ -80,12 +80,18 @@ function poolingResults(filename) {
 
         const list = $("<ul></ul>")
 
-        list.append("<li>" + dataAsJsonParsed.text + "</li>")
-        dataAsJsonParsed.opinions.map((e)=>{
-            Object.keys(e).map((k)=> {
-                //console.log(k, e[k]);
-                list.append("<li>" + k + ":  " +  e[k] + "</li>")
+        list.append("<li>The sentiment analysis for the file is:</li>")
+        dataAsJsonParsed.forEach((e)=>{
+            const listitem = $("<ul></ul>")
+            listitem.append("<li class=\"opiniontext\">" + e.text + "</li>")
+            e.opinions.forEach((k)=> {
+                Object.keys(k).forEach((key)=> {
+                    listitem.append("<li> <span class=\"opinionlist\">" + key + "</span>:  " +  k[key] + "</li>")
+                })
+                
             })
+            list.append("<li class=\"separator\"> </li>")
+            list.append(listitem)
         });
 
         $("#rezultate").append(list)

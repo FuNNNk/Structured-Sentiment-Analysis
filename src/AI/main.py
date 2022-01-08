@@ -48,7 +48,7 @@ else:
             for sentence in list_of_sentences:
                 prediction = prediction_system.predict_text(sentence)
                 output = {
-                        "sent_id": file_path,
+                        # "sent_id": file_path,
                         "text": sentence,
                         "opinions": prediction
                 }

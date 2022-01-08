@@ -249,6 +249,19 @@ textarea{
   animation: load8 1.1s infinite linear;
   overflow: hidden;
 }
+.separator{
+    border-bottom: 1px solid sienna;
+    height: 5px;
+}
+.opiniontext{
+    font-style: italic;
+    font-weight: bold;
+    color: slateblue;
+}
+.opinionlist{
+    font-weight: bold;
+    color: rgb(138, 34, 15);
+}
 @-webkit-keyframes load8 {
   0% {
     -webkit-transform: rotate(0deg);
