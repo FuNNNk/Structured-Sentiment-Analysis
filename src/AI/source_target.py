@@ -267,7 +267,10 @@ def write_list_into_file(list_of_sentences):
 
 def return_output(sentence):
     p_sentence = nlp(sentence)
-    source_target = source_target_extraction(p_sentence)
+    try:
+        source_target = source_target_extraction(p_sentence)
+    except:
+        source_target = []
     positions_list = []
     for item in source_target:
         source = item[0][8::]
