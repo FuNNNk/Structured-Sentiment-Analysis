@@ -14,7 +14,9 @@ class PredictionSystem(metaclass=Singleton):
         # STRATEGY
 
         if alg_type == 'NN':
-            self.algorithm = NeuralNetworksAlg(weights_file_path='./models/best_model.hdf5')
+            self.algorithm = NeuralNetworksAlg(model_file_path='./models/nn_model.hdf5')
+        if alg_type == 'REG':
+            self.algorithm = RegressionAlg(model_file_path='./models/regression_model.pkl')
 
     def train_model(self, data):
         preprocessed_data = self.preprocessor.pre_process_input(data)
@@ -52,7 +54,7 @@ class PredictionSystem(metaclass=Singleton):
                                 )
         elif sour_tar:
             for item in zip(sour_tar, source_positions_list, target_positions_list):
-                prediction = self.algorithm.predict_single_input("")
+                prediction = self.algorithm.predict_single_input(text)
                 polarity, intensity = prediction.split('_')
                 opinions.append({"Source": [[item[0][0][8::]] if item[0][0][8::] else [], item[1]],
                                  "Target": [[item[0][1][8::]] if item[0][1][8::] else [], item[2]],
