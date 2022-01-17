@@ -26,6 +26,9 @@ Team coordinator: Trandabat Diana
 
 [Trello](https://trello.com/b/aIm9POpX/structured-sentiment-analysis)
 
+[Canva Presentation](https://www.canva.com/design/DAE1t047bbI/share/preview?token=kymNJwRilz9sGYSiNyLXiQ&role=EDITOR&utm_content=DAE1t047bbI&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton)
+
+
 
 
 **Setup and run**
